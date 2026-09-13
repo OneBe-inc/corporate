@@ -8,9 +8,11 @@
 - 対象：日本語で相談する事業者。所在地や対応地域に根拠のない限定・拡張はしない。
 - ページ：TOP、実績一覧・3詳細、支援内容・制作6詳細・パッケージ3詳細、OneBeについて、相談・確認・Thanks、プライバシー、404。
 - 描画：21ページの本文・見出し・ナビゲーションは初回HTMLに含む。主要な閲覧はJavaScriptに依存しない。JSはモーダル・フィルター・フォームなどの操作に使用。
-- index：18の正規ページ。確認・Thanks・404はnoindex。入力内容はURLやHTMLに書き込まない。
+- index：2026-09-14のユーザー指示により、検索掲載を一時停止。`src/config.mjs` の `indexingEnabled: false` を全ページに適用し、全21ページを `noindex,follow`、サイトマップの掲載URLを0件にする。入力内容はURLやHTMLに書き込まない。
 - 正規URL：`https://onebe-inc.github.io/corporate/`。末尾スラッシュを統一。ページ台帳・canonical・サイトマップは同じ定義から生成。
 - 更新：lastmodは公開原稿の実質的な更新日に変更する。ビルド時刻による一括更新はしない。
+
+検索掲載再開時は `indexingEnabled: true` に戻して再公開します。その場合は通常の18ページが検索対象になり、入力確認・Thanks・404は引き続きnoindexです。noindexの認識には検索エンジンの再クロールが必要であり、公開直後の検索結果からの削除完了とは区別します。noindexを読み取れるようrobots.txtで取得を遮断しません。[Google公式のnoindex仕様](https://developers.google.com/search/docs/crawling-indexing/block-indexing)
 
 ## 事実・情報源・保留事項
 

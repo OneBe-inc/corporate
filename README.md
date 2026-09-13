@@ -4,6 +4,12 @@ OneBeのコーポレートサイト。PC・タブレット・スマートフォ�
 
 公開URL：<https://onebe-inc.github.io/corporate/>
 
+## 検索掲載の一時停止
+
+2026-09-14のユーザー指示により、現在は `src/config.mjs` の `indexingEnabled: false` で全21ページを `noindex,follow` にしています。サイトマップの掲載URLは0件です。URLを直接開いて確認することはできます。
+
+検索掲載を再開する場合は `indexingEnabled: true` に変更し、ビルド・検証・公開してください。入力確認・Thanks・404の個別noindexは再開後も維持されます。検索結果からの除外は検索エンジンがnoindexを再取得した後に反映されるため、即時ではありません。robots.txtで取得を遮断するとnoindexを読めなくなるため、クロール拒否は追加していません。
+
 ## 開発・更新
 
 Node.js 22以上を使用します。
