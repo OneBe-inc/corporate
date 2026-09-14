@@ -4,7 +4,7 @@ const videoPath = '**/assets/onebe-loading-v2.mp4';
 const intro = page => page.getByRole('dialog', {name: 'OneBeのオープニング', exact: true});
 const skip = page => page.getByRole('button', {name: '動画をスキップしてサイトを表示'});
 
-test('original video autoplays silently, ends, then allows the headings to animate', async ({page}) => {
+test('compact PC intro autoplays silently and reveals the site as the motion finishes', async ({page}) => {
   await page.setViewportSize({width: 1440, height: 1200});
   await page.emulateMedia({reducedMotion: 'no-preference'});
   const errors = [], videoRequests = [];
@@ -18,10 +18,35 @@ test('original video autoplays silently, ends, then allows the headings to anima
     width: video.videoWidth, height: video.videoHeight, fit: getComputedStyle(video).objectFit,
   }));
   expect(state).toEqual({muted: true, inline: true, duration: 10, width: 1920, height: 1080, fit: 'contain'});
+  const videoBox = await page.locator('#intro-loader video').boundingBox();
+  expect(videoBox.width).toBeLessThanOrEqual(800);
+  expect(videoBox.x).toBeGreaterThanOrEqual(320);
+  await expect(skip(page)).toBeFocused();
+  await page.locator('#intro-loader video').evaluate(video => {
+    const pause = video.pause.bind(video);
+    window.introTiming = {};
+    video.pause = () => {
+      window.introTiming.pausedAt = video.currentTime;
+      window.introTiming.pauseTime = performance.now();
+      pause();
+    };
+    const observer = new MutationObserver(() => {
+      if (!video.isConnected) {
+        window.introTiming.removedAt = performance.now();
+        observer.disconnect();
+      }
+    });
+    observer.observe(document.body, {childList: true});
+  });
   await expect(page.locator('h2.is-shuffling')).toHaveCount(0);
   await page.waitForFunction(() => document.querySelector('#intro-loader video')?.currentTime > 5);
   await page.screenshot({path: 'reports/intro-1440.png'});
   await expect(intro(page)).toBeHidden({timeout: 11000});
+  const timing = await page.evaluate(() => window.introTiming);
+  expect(timing.pausedAt).toBeGreaterThanOrEqual(7.35);
+  expect(timing.pausedAt).toBeLessThan(7.6);
+  expect(timing.removedAt - timing.pauseTime).toBeLessThan(100);
+  await expect(page.locator('main h2').first()).toHaveClass(/is-shuffling/);
   await expect(page.locator('html')).not.toHaveClass(/intro-active/);
   await expect(page.locator('main h1')).toBeVisible();
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex,follow');

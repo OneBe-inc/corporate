@@ -25,7 +25,9 @@
   const skip = dialog.querySelector('button');
   const events = new AbortController();
   const options = {signal: events.signal};
-  let finished = false, stallTimer, maximumTimer;
+  // The supplied video finishes its logo/guide motion at 7.35s; the rest is a still hold.
+  const motionEnd = 7.35;
+  let finished = false, stallTimer, maximumTimer, playbackFrame;
 
   function finish(reason, immediate = false) {
     if (finished) return;
@@ -33,6 +35,7 @@
     events.abort();
     clearTimeout(stallTimer);
     clearTimeout(maximumTimer);
+    cancelAnimationFrame(playbackFrame);
     video.pause();
 
     const reveal = () => {
@@ -57,15 +60,27 @@
     stallTimer = setTimeout(() => finish('timeout', true), milliseconds);
   }
 
+  function watchMotionEnd() {
+    if (video.currentTime >= motionEnd) {
+      finish('motion-complete', true);
+      return;
+    }
+    playbackFrame = requestAnimationFrame(watchMotionEnd);
+  }
+
   skip.addEventListener('click', () => finish('skip'), options);
   dialog.addEventListener('cancel', event => {
     event.preventDefault();
     finish('skip', true);
   }, options);
   dialog.addEventListener('close', () => finish('closed', true), options);
-  video.addEventListener('ended', () => finish('ended'), options);
+  video.addEventListener('ended', () => finish('ended', true), options);
   video.addEventListener('error', () => finish('error', true), options);
-  video.addEventListener('playing', () => clearTimeout(stallTimer), options);
+  video.addEventListener('playing', () => {
+    clearTimeout(stallTimer);
+    cancelAnimationFrame(playbackFrame);
+    watchMotionEnd();
+  }, options);
   video.addEventListener('waiting', () => allowBriefWait(), options);
   video.addEventListener('stalled', () => allowBriefWait(), options);
   motion.addEventListener('change', () => { if (motion.matches) finish('reduced-motion', true); }, options);
@@ -73,6 +88,7 @@
   window.addEventListener('pagehide', () => finish('navigation', true), options);
 
   try {
+    skip.autofocus = true;
     dialog.showModal();
     document.documentElement.classList.add('intro-active');
     allowBriefWait(2500);
