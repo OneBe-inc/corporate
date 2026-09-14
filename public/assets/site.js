@@ -32,3 +32,101 @@ if(confirm){const draft=loadDraft();if(!draft||!validateDraft(draft).valid){conf
   });$('#edit-link').addEventListener('click',event=>{if(sending)event.preventDefault();});
 }}
 if($('#receipt')){try{const received=Number(sessionStorage.getItem(receiptKey));if(received&&Date.now()-received<86400000){$('#receipt').hidden=false;$('#thanks-direct').hidden=true;}}catch{}}
+
+function initHeadingShuffle() {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (reducedMotion.matches || !('IntersectionObserver' in window)) return;
+
+  const running = new Map();
+  const segmenter = typeof Intl.Segmenter === 'function'
+    ? new Intl.Segmenter('ja', {granularity: 'grapheme'}) : null;
+  const glyphs = {
+    upper: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    lower: 'abcdefghijklmnopqrstuvwxyz',
+    number: '0123456789',
+    japanese: 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモラリルレロ',
+  };
+
+  function finish(heading) {
+    const state = running.get(heading);
+    if (!state) return;
+    cancelAnimationFrame(state.frame);
+    heading.replaceChildren(...state.originalNodes);
+    heading.classList.remove('is-shuffling');
+    running.delete(heading);
+  }
+
+  function play(heading) {
+    const originalNodes = [...heading.childNodes];
+    const source = document.createElement('span');
+    source.className = 'heading-shuffle-source';
+    source.append(...originalNodes);
+    const visual = source.cloneNode(true);
+    visual.className = 'heading-shuffle-visual';
+    visual.setAttribute('aria-hidden', 'true');
+    visual.setAttribute('inert', '');
+    visual.querySelectorAll('[id]').forEach(node => node.removeAttribute('id'));
+
+    // The original text stays in the accessibility tree and reserves its layout.
+    const walker = document.createTreeWalker(visual, NodeFilter.SHOW_TEXT);
+    const runs = [];
+    let node, count = 0;
+    while ((node = walker.nextNode())) {
+      const characters = segmenter
+        ? [...segmenter.segment(node.data)].map(item => item.segment) : Array.from(node.data);
+      const tokens = characters.map(character => {
+        const pool = /^[A-Z]$/.test(character) ? glyphs.upper
+          : /^[a-z]$/.test(character) ? glyphs.lower
+          : /^[0-9]$/.test(character) ? glyphs.number
+          : /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]/u.test(character) ? glyphs.japanese : '';
+        return {character, pool, index: pool ? count++ : -1};
+      });
+      runs.push({node, tokens});
+    }
+    if (!count) { heading.append(...originalNodes); return; }
+
+    const state = {originalNodes, frame: 0};
+    running.set(heading, state);
+    heading.append(source, visual);
+    heading.classList.add('is-shuffling');
+    const started = performance.now();
+    const duration = 780;
+    let previous = -Infinity;
+
+    function update(now) {
+      const elapsed = now - started;
+      if (elapsed >= duration || reducedMotion.matches || document.hidden) {
+        finish(heading);
+        return;
+      }
+      if (now - previous >= 55) {
+        const resolved = Math.floor(count * Math.max(0, (elapsed - 150) / (duration - 150)));
+        for (const {node, tokens} of runs) {
+          node.data = tokens.map(({character, pool, index}) =>
+            !pool || index < resolved ? character : pool[Math.floor(Math.random() * pool.length)]
+          ).join('');
+        }
+        previous = now;
+      }
+      state.frame = requestAnimationFrame(update);
+    }
+    update(started);
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting || entry.intersectionRatio < 0.35) continue;
+      observer.unobserve(entry.target);
+      if (!reducedMotion.matches) play(entry.target);
+    }
+  }, {threshold: 0.35, rootMargin: '0px 0px -8% 0px'});
+  document.querySelectorAll('h2').forEach(heading => observer.observe(heading));
+
+  const finishAll = () => [...running.keys()].forEach(finish);
+  window.addEventListener('resize', finishAll, {passive: true});
+  document.addEventListener('visibilitychange', () => { if (document.hidden) finishAll(); });
+  reducedMotion.addEventListener('change', () => {
+    if (reducedMotion.matches) { observer.disconnect(); finishAll(); }
+  });
+}
+initHeadingShuffle();
