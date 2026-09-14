@@ -3,7 +3,7 @@ const $=(s,scope=document)=>scope.querySelector(s),base=document.body.dataset.ba
 let opener;
 function showDialog(id,trigger){const dialog=document.getElementById(id+'-dialog');if(!dialog)return false;opener=trigger;dialog.showModal();document.body.classList.add('modal-open');return true;}
 document.addEventListener('click',event=>{const trigger=event.target.closest('[data-open]');if(trigger&&showDialog(trigger.dataset.open,trigger))event.preventDefault();const zoom=event.target.closest('[data-zoom]');if(zoom){$('#zoom-image').src=zoom.dataset.zoom;$('#zoom-image').alt=zoom.querySelector('img').alt;showDialog('image',zoom);}const close=event.target.closest('.close-dialog');if(close)close.closest('dialog').close();});
-document.querySelectorAll('dialog').forEach(dialog=>{dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});dialog.addEventListener('close',()=>{document.body.classList.remove('modal-open');if(opener?.isConnected)opener.focus();});});
+document.querySelectorAll('dialog.dialog').forEach(dialog=>{dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});dialog.addEventListener('close',()=>{document.body.classList.remove('modal-open');if(opener?.isConnected)opener.focus();});});
 const filters=[...document.querySelectorAll('[data-filter]')];
 filters.forEach(button=>button.addEventListener('click',()=>{const value=button.dataset.filter;filters.forEach(b=>{b.classList.toggle('active',b===button);b.setAttribute('aria-pressed',String(b===button));});let count=0;document.querySelectorAll('[data-categories]').forEach(card=>{card.hidden=value!=='すべて'&&!card.dataset.categories.split('|').includes(value);if(!card.hidden)count++;});$('.result-count').textContent=count+'件の実績';$('#no-results').hidden=count>0;const search=new URLSearchParams(location.search);if(value==='すべて')search.delete('category');else search.set('category',value);history.replaceState(null,'',location.pathname+(search.size?'?'+search:'')+location.hash);}));
 const selectedCategory=new URLSearchParams(location.search).get('category');if(selectedCategory)filters.find(b=>b.dataset.filter===selectedCategory)?.click();
@@ -129,4 +129,4 @@ function initHeadingShuffle() {
     if (reducedMotion.matches) { observer.disconnect(); finishAll(); }
   });
 }
-initHeadingShuffle();
+Promise.resolve(window.onebeIntroReady).then(initHeadingShuffle);

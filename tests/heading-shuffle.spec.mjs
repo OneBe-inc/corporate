@@ -1,4 +1,7 @@
 import {test, expect} from '@playwright/test';
+test.beforeEach(async ({page}) => {
+  await page.addInitScript(() => { try { sessionStorage.setItem('onebe-intro-v2', 'seen'); } catch {} });
+});
 
 const target = '.section-intro h2';
 async function enterViewport(page) {
