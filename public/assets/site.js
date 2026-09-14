@@ -1,5 +1,32 @@
 import {normalizeDraft,validateDraft,isSuccess,readStored,topicOptions} from './form.mjs';
 const $=(s,scope=document)=>scope.querySelector(s),base=document.body.dataset.base;
+function initHeroFilm(){
+  const video=$('#hero-video'),button=$('#hero-playback'),poster=$('.hero-poster');
+  if(!video||!button||!poster)return;
+  const motion=matchMedia('(prefers-reduced-motion: reduce)');
+  let enabled=!motion.matches&&!navigator.connection?.saveData,userPaused=false,visible=true,ready=false,selected='';
+  const source=()=>innerWidth<=767?video.dataset.mobile:innerWidth<=1199?video.dataset.tablet:video.dataset.pc;
+  const still=()=>{video.hidden=true;poster.hidden=false;};
+  const label=()=>{const playing=enabled&&!userPaused;button.textContent=playing?'一時停止':'再生';button.setAttribute('aria-label',playing?'FVの映像を一時停止':'FVの映像を再生');};
+  function sync(){
+    label();
+    if(!ready||!enabled||userPaused||!visible||document.hidden){video.pause();return;}
+    const next=source();
+    if(next!==selected){selected=next;still();video.src=next;video.muted=true;}
+    if(video.paused)video.play().catch(error=>{if(error.name==='AbortError')return;userPaused=true;still();label();});
+  }
+  button.addEventListener('click',()=>{if(enabled&&!userPaused)userPaused=true;else{enabled=true;userPaused=false;}sync();});
+  video.addEventListener('playing',()=>{video.hidden=false;poster.hidden=true;});
+  video.addEventListener('error',()=>{userPaused=true;selected='';video.pause();still();label();});
+  motion.addEventListener('change',()=>{if(motion.matches){enabled=false;still();}sync();});
+  document.addEventListener('visibilitychange',sync);
+  let resizeTimer;
+  window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{if(selected&&selected!==source()){video.pause();still();}sync();},150);});
+  if('IntersectionObserver' in window)new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;sync();},{threshold:0}).observe(video.parentElement);
+  button.hidden=false;
+  Promise.resolve(window.onebeIntroReady).then(()=>{ready=true;sync();});
+}
+initHeroFilm();
 let opener;
 function showDialog(id,trigger){const dialog=document.getElementById(id+'-dialog');if(!dialog)return false;opener=trigger;dialog.showModal();document.body.classList.add('modal-open');return true;}
 document.addEventListener('click',event=>{const trigger=event.target.closest('[data-open]');if(trigger&&showDialog(trigger.dataset.open,trigger))event.preventDefault();const zoom=event.target.closest('[data-zoom]');if(zoom){$('#zoom-image').src=zoom.dataset.zoom;$('#zoom-image').alt=zoom.querySelector('img').alt;showDialog('image',zoom);}const close=event.target.closest('.close-dialog');if(close)close.closest('dialog').close();});
