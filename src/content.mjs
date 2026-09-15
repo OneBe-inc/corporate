@@ -69,8 +69,8 @@ export const works = [
       "Web",
       "紙・サイン"
     ],
-    "scope": "V/ENTER WEB／コーポレートサイト／パンフレット／名刺",
-    "description": "V/ENTER WEBのWebページをはじめ、コーポレートサイト、パンフレット、名刺の制作を担当。Webと紙を通して、会社やサービスを伝える支援です。"
+    "scope": "V/ENTER WEB／コーポレートサイト／パンフレット／V/COREチラシ／名刺",
+    "description": "V/ENTER WEBのWebページをはじめ、コーポレートサイト、パンフレット、V/COREのチラシ、名刺の制作を担当。Webと紙を通して、会社やサービスを伝える支援です。"
   },
   {
     "id": "ontsugi",
