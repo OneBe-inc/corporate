@@ -59,24 +59,18 @@ export const works = [
   {
     "id": "vaizo",
     "name": "VAIZO",
-    "image": "vaizo-brand-logo",
-    "imageAlt": "VAIZOのブランドロゴ",
-    "imageLabel": "VAIZO",
-    "imageCaption": "VAIZOのブランドロゴ。",
-    "gallery": [
-      {
-        "image": "vaizo-portrait",
-        "alt": "自然光が差し込む窓辺に立つVAIZOの人物写真",
-        "caption": "VAIZOの人物写真。"
-      }
-    ],
+    "image": "vaizo-enter-web-top",
+    "imageAlt": "V/ENTER WEBのTOPページ。オレンジを基調に、伝わり方を変えると会社はもっと伸びるというメッセージを配置",
+    "imageLabel": "V/ENTER WEB",
+    "imageCaption": "V/ENTER WEBの公開TOPページ（2026年9月16日取得）。",
+    "gallery": [],
     "title": "Webと紙で、事業を伝える。",
     "categories": [
       "Web",
       "紙・サイン"
     ],
-    "scope": "コーポレートサイト／パンフレット／名刺",
-    "description": "コーポレートサイト、パンフレット、名刺の制作を担当しました。会社を知る入口と、対面で手渡すツールの表現を整えています。"
+    "scope": "V/ENTER WEB／コーポレートサイト／パンフレット／名刺",
+    "description": "V/ENTER WEBのWebページをはじめ、コーポレートサイト、パンフレット、名刺の制作を担当。Webと紙を通して、会社やサービスを伝える支援です。"
   },
   {
     "id": "ontsugi",

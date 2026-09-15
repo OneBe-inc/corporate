@@ -1,4 +1,4 @@
-// Published Instagram sources are linked per case; remaining drafts stay marked.
+// Published sources are linked per case; remaining drafts stay marked.
 export const caseStudies = {
   "umui": {
     "intro": "会社の顔となるロゴから、Web、店舗、メディアまで。UMUIのコーポレートロゴとUMUI Clipのサービスロゴの制作を含め、事業とお客様が出会う接点を紹介します。",
@@ -106,11 +106,25 @@ export const caseStudies = {
     "summary": "親子に向き合う想いを言葉にし、B1ポスター、パンフレット、店舗看板へ。コンセプトと制作物の両方を担当した支援です。"
   },
   "vaizo": {
-    "intro": "Webで調べるときにも、対面で説明を受けるときにも、事業が伝わるように。VAIZOへの支援を、コーポレートサイト、パンフレット、名刺の三つから紹介します。",
+    "intro": "会社を知るコーポレートサイトと、サービスを伝えるV/ENTER WEB。Webの制作に加えて、パンフレット・名刺の制作も担当しました。ここではV/ENTER WEBの公開TOPページを紹介します。",
     "focus": "知る、理解する、つながる。その接点を整える。",
     "context": "会社を知る人の状況はさまざまです。Webで情報を探している人、会社案内を読んでいる人、初めて挨拶を交わす人。それぞれの場面に適した情報の伝え方を考えることが、Webと紙を扱う支援のテーマです。",
     "approach": "媒体の役割に合わせて情報を整理しながら、会社としての表現をつなげる。Webと紙の制作を、別々の成果物で終わらせないための視点として紹介します。",
     "chapters": [
+      {
+        "title": "V/ENTER WEB",
+        "subtitle": "サービスの魅力を、最初の画面で伝える。",
+        "body": "V/ENTER WEBのTOPページを掲載しています。オレンジを基調に、キャッチコピー、PC・スマートフォンのビジュアル、キャラクターを配置。無料相談と実績紹介への入口を、最初の画面にまとめたWebページです。",
+        "points": [
+          "V/ENTER WEBのWebページ制作",
+          "公開中のTOPページを掲載"
+        ],
+        "image": {
+          "image": "vaizo-enter-web-top",
+          "alt": "V/ENTER WEBのTOPページ。オレンジを基調に、伝わり方を変えると会社はもっと伸びるというメッセージを配置",
+          "caption": "V/ENTER WEBの公開TOPページ（2026年9月16日取得）。"
+        }
+      },
       {
         "title": "コーポレートサイト",
         "subtitle": "事業を知り、理解する入口に。",
@@ -118,12 +132,7 @@ export const caseStudies = {
         "points": [
           "コーポレートサイトの制作",
           "会社を知るためのWeb上の接点"
-        ],
-        "image": {
-          "image": "vaizo-portrait",
-          "alt": "窓辺に立つVAIZOの人物写真",
-          "caption": "VAIZOの人物写真。Webサイトの画面ではありません。"
-        }
+        ]
       },
       {
         "title": "パンフレット",
@@ -144,8 +153,12 @@ export const caseStudies = {
         ]
       }
     ],
-    "summary": "コーポレートサイト、パンフレット、名刺。会社を調べる場面と、対面で説明する場面の両方を支える制作を担当しました。",
-    "pending": "ご相談時の課題、具体的な制作物、情報設計・デザインの工夫、制作後の反応を確認して追記します。ロゴ・写真は事業紹介の素材で、制作担当を示すものではありません。"
+    "summary": "V/ENTER WEB、コーポレートサイト、パンフレット、名刺。会社やサービスを知るWeb上の接点と、対面で手渡す制作物を担当しました。",
+    "pending": "ご相談時の課題、制作時の具体的な工夫、担当分担、制作後の反応は、確認して追記します。",
+    "externalSite": {
+      "label": "V/ENTER WEBの公開サイトを見る",
+      "url": "https://vaizo.jp/enter-web/"
+    }
   },
   "ontsugi": {
     "draft": false,
