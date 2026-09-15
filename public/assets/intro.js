@@ -68,7 +68,7 @@
       video.pause();
       clearTimeout(stallTimer);
       clearTimeout(maximumTimer);
-      holdTimer = setTimeout(() => finish('motion-complete', true), 500);
+      holdTimer = setTimeout(() => finish('motion-complete'), 500);
       return;
     }
     playbackFrame = requestAnimationFrame(watchMotionEnd);

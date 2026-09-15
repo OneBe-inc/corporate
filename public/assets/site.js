@@ -157,3 +157,19 @@ function initHeadingShuffle() {
   });
 }
 Promise.resolve(window.onebeIntroReady).then(initHeadingShuffle);
+
+// Manual featured works: no timer or automatic rotation.
+document.querySelectorAll('.works-carousel').forEach(carousel=>{
+ const slides=[...carousel.querySelectorAll('.works-slide')],thumbs=[...carousel.querySelectorAll('[data-slide]')];let index=0,start;
+ const show=n=>{index=(n+slides.length)%slides.length;slides.forEach((s,i)=>s.hidden=i!==index);thumbs.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===index)));carousel.querySelector('.carousel-count').textContent=String(index+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');};
+ thumbs.forEach(b=>b.addEventListener('click',()=>show(Number(b.dataset.slide))));
+ carousel.querySelectorAll('[data-carousel-step]').forEach(b=>b.addEventListener('click',()=>show(index+Number(b.dataset.carouselStep))));
+ carousel.addEventListener('keydown',event=>{if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();show(index+(event.key==='ArrowRight'?1:-1));}});
+ carousel.addEventListener('touchstart',event=>{const t=event.touches[0];start={x:t.clientX,y:t.clientY};},{passive:true});
+ carousel.addEventListener('touchend',event=>{if(!start)return;const t=event.changedTouches[0],dx=t.clientX-start.x,dy=t.clientY-start.y;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5)show(index+(dx<0?1:-1));start=null;},{passive:true});
+ carousel.addEventListener('touchcancel',()=>{start=null;},{passive:true});
+});
+document.querySelectorAll('.journal').forEach(journal=>{
+ const buttons=[...journal.querySelectorAll('[data-journal-filter]')],cards=[...journal.querySelectorAll('[data-journal-kind]')],empty=journal.querySelector('.journal-empty');
+ buttons.forEach(button=>button.addEventListener('click',()=>{const category=button.dataset.journalFilter;let count=0;cards.forEach(card=>{const match=category==='すべて'||card.dataset.journalKind===category;card.hidden=!match||count>=Number(journal.dataset.limit);if(match)count++;});buttons.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));empty.hidden=count>0;empty.textContent=count?'':category+'は、公開後にこちらへ掲載します。';}));
+});

@@ -1,5 +1,15 @@
 [
   {
+    "path": "journal/",
+    "title": "記事一覧",
+    "description": "OneBeのブログ・お知らせ・プレスリリースをお届けします。",
+    "url": "https://onebe-inc.github.io/corporate/journal/",
+    "index": false,
+    "canonical": "https://onebe-inc.github.io/corporate/journal/",
+    "source": "Approved OneBe design / supplied profile / user-provided email",
+    "updated": "2026-09-14"
+  },
+  {
     "path": "news/",
     "title": "お知らせ",
     "description": "株式会社OneBeからのお知らせ。サイトの更新や活動に関する情報をご案内します。",
