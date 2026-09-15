@@ -6,5 +6,5 @@ test('tablet sidebar opens without modal, navigates, closes and survives breakpo
  await page.keyboard.press('Escape');await expect(panel).toBeHidden();await expect(page.getByRole('button',{name:'メニューを開く'})).toBeFocused();
  await page.getByRole('button',{name:'メニューを開く'}).click();await panel.getByRole('link',{name:'実績',exact:true}).click();await expect(page).toHaveURL(/works\/$/);
  }
- await page.getByRole('button',{name:'メニューを開く'}).click();await page.setViewportSize({width:390,height:844});await expect(page.locator('#tablet-navigation')).toBeHidden();await page.getByRole('button',{name:'メニューを開く'}).click();await expect(page.locator('#menu-dialog')).toBeVisible();await page.setViewportSize({width:834,height:1112});await expect(page.locator('#menu-dialog')).not.toBeVisible();await expect(page.locator('body')).not.toHaveClass(/modal-open/);
+ await page.getByRole('button',{name:'メニューを開く'}).click();await page.setViewportSize({width:390,height:844});await expect(page.locator('#tablet-navigation')).toBeHidden();await page.getByRole('button',{name:'メニューを開く'}).click();await expect(page.locator('#phone-navigation')).toBeVisible();await page.setViewportSize({width:834,height:1112});await expect(page.locator('#phone-navigation')).not.toBeVisible();await expect(page.locator('body')).not.toHaveClass(/modal-open/);
 });

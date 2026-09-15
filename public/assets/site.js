@@ -243,3 +243,19 @@ window.addEventListener('pageshow',event=>{
  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&open){event.preventDefault();setOpen(false,true);}});
  tablet.addEventListener('change',sync);window.addEventListener('pageshow',()=>{if(open)setOpen(false);});sync();
 })();
+
+// Phone navigation follows the approved typographic side-panel design.
+(()=>{
+ const toggle=document.querySelector('.menu-toggle');if(!toggle)return;
+ const phone=matchMedia('(max-width:767px)'),panel=document.createElement('aside');
+ panel.id='phone-navigation';panel.className='phone-navigation';panel.hidden=true;panel.setAttribute('aria-label','サイトメニュー');
+ const links=[['','ホーム','HOME','home'],['works/','実績','SELECTED WORKS','works'],['services/','支援内容','SERVICES','services'],['about/','OneBeについて','ABOUT US','about']];
+ panel.innerHTML='<div class="phone-menu-top"><img src="'+base+'assets/logo.png" alt="OneBe" width="105" height="26"><button type="button" aria-label="メニューを閉じる"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m4 4 12 12M16 4 4 16"/></svg></button></div><p class="phone-menu-label">EXPLORE ONEBE</p><nav aria-label="スマホナビゲーション">'+links.map(([path,title,en,kind],i)=>'<a href="'+base+path+'" class="phone-item '+kind+'" style="--order:'+i+'" '+(location.pathname===base+path?'aria-current="page"':'')+'><span class="phone-num" aria-hidden="true">'+(i?'0'+i:'•')+'</span><span><span class="phone-title">'+title+'</span><span class="phone-en">'+en+'</span></span></a>').join('')+'</nav><div class="phone-menu-bottom"><a class="phone-contact" href="'+base+'contact/"><span><small>LET’S TALK</small><strong>ブランドについて<br>相談する</strong></span><span class="phone-arrow" aria-hidden="true">↗</span></a><a class="phone-email" href="mailto:info@onebe-create.com">info@onebe-create.com</a><div class="phone-foot"><a href="'+base+'privacy/">プライバシーポリシー</a><span>© 2026 OneBe</span></div></div>';
+ document.body.append(panel);let open=false,timer;
+ const background=[...document.querySelectorAll('body>main,body>.site-header,body>.site-footer')];
+ function setOpen(value,restore=false){clearTimeout(timer);open=value;toggle.setAttribute('aria-expanded',String(value));background.forEach(el=>el.inert=value);if(value){panel.hidden=false;panel.inert=false;panel.getBoundingClientRect();document.body.classList.add('phone-menu-open');panel.querySelector('button').focus({preventScroll:true});}else{document.body.classList.remove('phone-menu-open');panel.inert=true;timer=setTimeout(()=>panel.hidden=true,300);if(restore&&phone.matches)toggle.focus({preventScroll:true});}}
+ function sync(){if(open)setOpen(false);if(phone.matches){toggle.removeAttribute('data-open');toggle.removeAttribute('aria-haspopup');toggle.setAttribute('aria-controls',panel.id);toggle.setAttribute('aria-expanded','false');const old=document.querySelector('#menu-dialog');if(old.open)old.close();}}
+ toggle.addEventListener('click',()=>{if(phone.matches)setOpen(!open);});panel.querySelector('button').addEventListener('click',()=>setOpen(false,true));
+ document.addEventListener('keydown',event=>{if(!open)return;if(event.key==='Escape'){event.preventDefault();setOpen(false,true);}if(event.key==='Tab'){const items=[...panel.querySelectorAll('button,a[href]')],first=items[0],last=items.at(-1);if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}}});
+ phone.addEventListener('change',sync);window.addEventListener('pageshow',()=>{if(open)setOpen(false);});sync();
+})();
