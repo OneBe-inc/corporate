@@ -19,7 +19,7 @@ test('selected portfolio assets load and zoom captions follow each image',async(
         await page.keyboard.press('Escape');
         await expect(trigger).toBeFocused();
       }
-      for(const img of await page.locator('main img').all()){await img.scrollIntoViewIfNeeded();await img.evaluate(el=>el.decode());}
+      for(const img of await page.locator('main img:visible').all()){await img.scrollIntoViewIfNeeded();await img.evaluate(el=>el.decode());}
       await page.evaluate(()=>{document.activeElement?.blur();window.scrollTo({top:0,behavior:'instant'});});
       await page.waitForTimeout(300);
       await page.screenshot({path:`reports/photos-${width}-${route.replaceAll('/','-')}.png`,fullPage:true});
