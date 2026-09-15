@@ -1,5 +1,25 @@
 [
   {
+    "path": "news/",
+    "title": "お知らせ",
+    "description": "株式会社OneBeからのお知らせ。サイトの更新や活動に関する情報をご案内します。",
+    "url": "https://onebe-inc.github.io/corporate/news/",
+    "index": false,
+    "canonical": "https://onebe-inc.github.io/corporate/news/",
+    "source": "Approved OneBe design / supplied profile / user-provided email",
+    "updated": "2026-09-14"
+  },
+  {
+    "path": "news/blog-news/",
+    "title": "ブログ・ニュース欄を追加しました。",
+    "description": "OneBeのコーポレートサイトに、ブログとニュースの欄を追加しました。",
+    "url": "https://onebe-inc.github.io/corporate/news/blog-news/",
+    "index": false,
+    "canonical": "https://onebe-inc.github.io/corporate/news/blog-news/",
+    "source": "Approved OneBe design / supplied profile / user-provided email",
+    "updated": "2026-09-14"
+  },
+  {
     "path": "",
     "title": "OneBe｜ブランディング・Web・グラフィックデザイン",
     "description": "会社や事業の想いを整理し、言葉とデザインで伝わる形へ。OneBeはブランドの方向づくりからWeb、印刷物、店舗の表現まで伴走します。",

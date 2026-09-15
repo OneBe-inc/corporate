@@ -1,0 +1,20 @@
+import {test,expect} from '@playwright/test';
+for(const width of [390,834,1440])test(`blog and news navigation at ${width}px`,async({page})=>{
+  await page.setViewportSize({width,height:1000});
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await page.goto(process.env.UPDATES_BASE||'./');
+  await page.locator('#blog').scrollIntoViewIfNeeded();
+  await expect(page.locator('.blog-card')).toHaveCount(2);
+  await expect(page.locator('.blog-card a').first()).toHaveAttribute('href','https://note.com/isseimasuya/n/nf09b0b39cf4e');
+  await page.locator('.blog-image img').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await page.screenshot({path:`reports/updates-${width}.png`});
+  await page.locator('#news .news-list a').first().click();
+  await expect(page.locator('h1')).toHaveText('ブログ・ニュース欄を追加しました。');
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content',/noindex/);
+  await page.getByRole('link',{name:'ニュース一覧に戻る'}).click();
+  await expect(page.locator('h1')).toHaveText('お知らせ。');
+  await page.locator('.news-list a').first().click();
+  await page.getByRole('link',{name:'ブログを読む',exact:true}).click();
+  await expect(page.locator('#blog')).toBeInViewport();
+});
