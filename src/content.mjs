@@ -59,7 +59,7 @@ export const works = [
   {
     "id": "vaizo",
     "name": "VAIZO",
-    "image": "vaizo-enter-web-top",
+    "image": "vaizo-enter-web-top-hi",
     "imageAlt": "V/ENTER WEBのTOPページ。オレンジを基調に、伝わり方を変えると会社はもっと伸びるというメッセージを配置",
     "imageLabel": "V/ENTER WEB",
     "imageCaption": "V/ENTER WEBの公開TOPページ（2026年9月16日取得）。",
@@ -75,10 +75,10 @@ export const works = [
   {
     "id": "ontsugi",
     "name": "ontsugi",
-    "image": "ontsugi-logo",
+    "image": "ontsugi-logo-original-hi",
     "imageAlt": "オレンジと紺のシンボルを組み合わせたontsugiのコーポレートロゴ",
     "imageLabel": "ロゴデザイン",
-    "imageCaption": "株式会社ontsugiのコーポレートロゴ。OneBeの制作事例投稿より。",
+    "imageCaption": "株式会社ontsugiのコーポレートロゴ。納品データより。",
     "gallery": [],
     "title": "「恩を紡ぐ」を、温かみのある印に。",
     "categories": [

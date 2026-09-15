@@ -120,7 +120,7 @@ export const caseStudies = {
           "公開中のTOPページを掲載"
         ],
         "image": {
-          "image": "vaizo-enter-web-top",
+          "image": "vaizo-enter-web-top-hi",
           "alt": "V/ENTER WEBのTOPページ。オレンジを基調に、伝わり方を変えると会社はもっと伸びるというメッセージを配置",
           "caption": "V/ENTER WEBの公開TOPページ（2026年9月16日取得）。"
         }
