@@ -12,9 +12,87 @@ export const packages = [
   {id:'letter',name:'OneBeレター',en:'A LETTER, A NEW CONNECTION',image:'letter',lead:'手紙でつくる、新しい出会い。',description:'届けたい企業に、事業の魅力を手紙で伝える営業支援。相手を考えた言葉とデザインで、まだ出会っていないお客様との接点をつくります。',for:'自社のサービスを知ってほしい企業がある方、新しい営業のきっかけをつくりたい方。',points:['届ける相手・伝える内容の整理','手紙の文章・デザイン制作','発送や実施後の振り返りの相談'],conditions:'対象企業、送付件数、制作・印刷・発送の分担、実施期間と費用を確認します。商談や受注の獲得を保証するサービスではありません。'},
 ];
 export const works = [
-  {id:'umui',name:'UMUI',image:'umui-miyageya',imageAlt:'赤いMIYAGEYAのロゴサインが掲げられた店舗の入口と店内',imageLabel:'MIYAGEYA',imageCaption:'MIYAGEYAの店舗外観。ロゴサインが実際に使われている風景。',gallery:[],title:'事業の想いを、Webと店舗へ。',categories:['Web','空間'],scope:'コーポレートサイト／店舗デザイン／UMUI Clipの監修',description:'コーポレートサイトと店舗のデザイン、メディア「UMUI Clip」の監修を担当しました。事業に触れる複数の場面を通じて、表現を整える支援です。'},
-  {id:'soyokaze',name:'そよかぜ',image:'soyokaze-brochure',imageAlt:'託児所そよかぜのパンフレットの表紙と中面',imageLabel:'パンフレット',imageCaption:'パンフレットのデザインを紹介するモックアップです。',gallery:[{image:'soyokaze-care',alt:'保育者と子どもが向き合って遊ぶ、託児所そよかぜの保育風景',caption:'託児所そよかぜの保育風景。'},{image:'soyokaze-room',alt:'おもちゃと木製の柵がある、託児所そよかぜの室内',caption:'託児所そよかぜの施設内。事業の現場をご紹介します。'}],title:'「育児のお守り」を、言葉と地域の接点へ。',categories:['紙・サイン','ブランド'],scope:'理念の言語化／広報の方向性整理／パンフレット／駅広告／看板',description:'理念の言語化と広報の方向性の整理から、パンフレット、駅広告、看板まで。届けたい想いを、言葉と身近な接点に展開しました。'},
-  {id:'vaizo',name:'VAIZO',image:'vaizo-brand-logo',imageAlt:'VAIZOのブランドロゴ',imageLabel:'VAIZO',imageCaption:'VAIZOのブランドロゴ。',gallery:[{image:'vaizo-portrait',alt:'自然光が差し込む窓辺に立つVAIZOの人物写真',caption:'VAIZOの人物写真。'}],title:'Webと紙で、事業を伝える。',categories:['Web','紙・サイン'],scope:'コーポレートサイト／パンフレット／名刺',description:'コーポレートサイト、パンフレット、名刺の制作を担当しました。会社を知る入口と、対面で手渡すツールの表現を整えています。'},
+  {
+    "id": "umui",
+    "name": "UMUI",
+    "image": "umui-miyageya",
+    "imageAlt": "赤いMIYAGEYAのロゴサインが掲げられた店舗の入口と店内",
+    "imageLabel": "MIYAGEYA",
+    "imageCaption": "MIYAGEYAの店舗外観。ロゴサインが実際に使われている風景。",
+    "gallery": [],
+    "title": "事業の想いを、Webと店舗へ。",
+    "categories": [
+      "Web",
+      "空間",
+      "ブランド"
+    ],
+    "scope": "コーポレート・サービスロゴ／コーポレートサイト／店舗デザイン／UMUI Clipの監修",
+    "description": "UMUIのコーポレートロゴとUMUI Clipのサービスロゴを制作。コーポレートサイト、店舗デザイン、メディアの監修まで、事業に触れる複数の接点を支援しました。"
+  },
+  {
+    "id": "soyokaze",
+    "name": "そよかぜ",
+    "image": "soyokaze-brochure",
+    "imageAlt": "託児所そよかぜのパンフレットの表紙と中面",
+    "imageLabel": "パンフレット",
+    "imageCaption": "パンフレットのデザインを紹介するモックアップです。",
+    "gallery": [
+      {
+        "image": "soyokaze-care",
+        "alt": "保育者と子どもが向き合って遊ぶ、託児所そよかぜの保育風景",
+        "caption": "託児所そよかぜの保育風景。"
+      },
+      {
+        "image": "soyokaze-room",
+        "alt": "おもちゃと木製の柵がある、託児所そよかぜの室内",
+        "caption": "託児所そよかぜの施設内。事業の現場をご紹介します。"
+      }
+    ],
+    "title": "毎日頑張る親子の、心の居場所に。",
+    "categories": [
+      "紙・サイン",
+      "ブランド"
+    ],
+    "scope": "キャッチコピー・コンセプト設計／B1ポスター／パンフレット／店舗看板",
+    "description": "子育て中に頼れる人が少なかった、代表自身の経験から生まれた託児所そよかぜ。その想いをキャッチコピーとコンセプトにし、ポスター、パンフレット、店舗看板へ展開しました。"
+  },
+  {
+    "id": "vaizo",
+    "name": "VAIZO",
+    "image": "vaizo-brand-logo",
+    "imageAlt": "VAIZOのブランドロゴ",
+    "imageLabel": "VAIZO",
+    "imageCaption": "VAIZOのブランドロゴ。",
+    "gallery": [
+      {
+        "image": "vaizo-portrait",
+        "alt": "自然光が差し込む窓辺に立つVAIZOの人物写真",
+        "caption": "VAIZOの人物写真。"
+      }
+    ],
+    "title": "Webと紙で、事業を伝える。",
+    "categories": [
+      "Web",
+      "紙・サイン"
+    ],
+    "scope": "コーポレートサイト／パンフレット／名刺",
+    "description": "コーポレートサイト、パンフレット、名刺の制作を担当しました。会社を知る入口と、対面で手渡すツールの表現を整えています。"
+  },
+  {
+    "id": "ontsugi",
+    "name": "ontsugi",
+    "image": "ontsugi-logo",
+    "imageAlt": "オレンジと紺のシンボルを組み合わせたontsugiのコーポレートロゴ",
+    "imageLabel": "ロゴデザイン",
+    "imageCaption": "株式会社ontsugiのコーポレートロゴ。OneBeの制作事例投稿より。",
+    "gallery": [],
+    "title": "「恩を紡ぐ」を、温かみのある印に。",
+    "categories": [
+      "ブランド"
+    ],
+    "scope": "コーポレートロゴ",
+    "description": "「恩を紡ぐ」をテーマに、代表の想いや家族への想いを重ねた、株式会社ontsugiのコーポレートロゴを制作しました。"
+  }
 ];
 export const topics=['ブランドの方向性','ロゴ・印刷物などの制作','Webサイト制作','創業パッケージ','定額Webサービス','OneBeレター','まだ決まっていない','その他'];
 export const faqs=[

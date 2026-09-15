@@ -4,7 +4,7 @@ test('selected portfolio assets load and zoom captions follow each image',async(
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   for(const width of [390,834,1440]){
     await page.setViewportSize({width,height:1000});
-    for(const route of ['works/','works/umui/','works/soyokaze/','works/vaizo/']){
+    for(const route of ['works/','works/umui/','works/soyokaze/','works/vaizo/','works/ontsugi/']){
       await page.goto(route);
       await page.locator('main img').evaluateAll(images=>images.forEach(img=>img.loading='eager'));
       await expect.poll(()=>page.locator('main img').evaluateAll(images=>images.every(img=>img.complete&&img.naturalWidth>0))).toBe(true);

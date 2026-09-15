@@ -102,7 +102,7 @@
   {
     "path": "works/umui/",
     "title": "UMUIの制作・支援実績",
-    "description": "コーポレートサイトと店舗のデザイン、メディア「UMUI Clip」の監修を担当しました。事業に触れる複数の場面を通じて、表現を整える支援です。",
+    "description": "UMUIのコーポレートロゴとUMUI Clipのサービスロゴを制作。コーポレートサイト、店舗デザイン、メディアの監修まで、事業に触れる複数の接点を支援しました。",
     "url": "https://onebe-inc.github.io/corporate/works/umui/",
     "index": false,
     "canonical": "https://onebe-inc.github.io/corporate/works/umui/",
@@ -112,7 +112,7 @@
   {
     "path": "works/soyokaze/",
     "title": "そよかぜの制作・支援実績",
-    "description": "理念の言語化と広報の方向性の整理から、パンフレット、駅広告、看板まで。届けたい想いを、言葉と身近な接点に展開しました。",
+    "description": "子育て中に頼れる人が少なかった、代表自身の経験から生まれた託児所そよかぜ。その想いをキャッチコピーとコンセプトにし、ポスター、パンフレット、店舗看板へ展開しました。",
     "url": "https://onebe-inc.github.io/corporate/works/soyokaze/",
     "index": false,
     "canonical": "https://onebe-inc.github.io/corporate/works/soyokaze/",
@@ -126,6 +126,16 @@
     "url": "https://onebe-inc.github.io/corporate/works/vaizo/",
     "index": false,
     "canonical": "https://onebe-inc.github.io/corporate/works/vaizo/",
+    "source": "Approved OneBe design / supplied profile / user-provided email",
+    "updated": "2026-09-14"
+  },
+  {
+    "path": "works/ontsugi/",
+    "title": "ontsugiの制作・支援実績",
+    "description": "「恩を紡ぐ」をテーマに、代表の想いや家族への想いを重ねた、株式会社ontsugiのコーポレートロゴを制作しました。",
+    "url": "https://onebe-inc.github.io/corporate/works/ontsugi/",
+    "index": false,
+    "canonical": "https://onebe-inc.github.io/corporate/works/ontsugi/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
   },
