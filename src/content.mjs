@@ -95,3 +95,13 @@ export const faqs=[
   ['費用やスケジュールは、どのように決まりますか？','目的、制作するもの、点数、必要な機能、ご希望の時期を伺ったうえでお見積もりします。対応範囲と進め方を確認してから制作に入ります。'],
   ['制作後の更新や運用も相談できますか？','はい。Webの更新や制作物の展開などもご相談ください。対応する内容と条件を、事業の状況に合わせてすり合わせます。'],
 ];
+// Category cards use verified deliverable images, never unrelated company thumbnails.
+export const deliverables = [
+ {company:'vaizo',category:'Web',title:'V/ENTER WEB',image:'vaizo-enter-web-top-hi',chapter:1},
+ {company:'vaizo',category:'紙',title:'V/CORE チラシ',image:'vaizo-vcore-flyer',chapter:3},
+ {company:'soyokaze',category:'紙',title:'パンフレット',image:'soyokaze-brochure',chapter:2},
+ {company:'soyokaze',category:'紙',title:'B1ポスター',image:'soyokaze-poster',chapter:3},
+ {company:'umui',category:'サイン・空間',title:'MIYAGEYA 店舗デザイン',image:'umui-miyageya',chapter:3},
+ {company:'ontsugi',category:'ブランド',title:'コーポレートロゴ',image:'ontsugi-logo-original-hi',chapter:1},
+ {company:'soyokaze',category:'ブランド',title:'キャッチコピー・コンセプトの展開',image:'soyokaze-poster',chapter:1},
+];

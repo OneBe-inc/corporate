@@ -1,5 +1,20 @@
 import {normalizeDraft,validateDraft,isSuccess,readStored,topicOptions} from './form.mjs';
 const $=(s,scope=document)=>scope.querySelector(s),base=document.body.dataset.base;
+
+// Shared latest-selection-wins fade for in-page content switches.
+function fadeSwitcher(results,owner=results){
+ const motion=matchMedia('(prefers-reduced-motion: reduce)');let revision=0,animation,latest;
+ async function change(apply,immediate=false){
+  latest=apply;const current=++revision,opacity=getComputedStyle(results).opacity;animation?.cancel();
+  if(immediate||motion.matches||!results.animate){apply();results.inert=false;owner.removeAttribute('aria-busy');return;}
+  results.inert=true;owner.setAttribute('aria-busy','true');
+  try{animation=results.animate([{opacity},{opacity:0}],{duration:140,easing:'ease-out',fill:'forwards'});await animation.finished;if(current!==revision)return;apply();animation.cancel();animation=results.animate([{opacity:0},{opacity:1}],{duration:220,easing:'ease-out',fill:'forwards'});await animation.finished;}
+  catch{/* Superseded transitions are cancelled. */}
+  finally{if(current===revision){animation?.cancel();results.inert=false;owner.removeAttribute('aria-busy');}}
+ }
+ motion.addEventListener('change',()=>{if(motion.matches&&latest)change(latest,true);});return change;
+}
+
 function initHeroFilm(){
   const video=$('#hero-video'),button=$('#hero-playback'),poster=$('.hero-poster');
   if(!video||!button||!poster)return;
@@ -32,8 +47,16 @@ function showDialog(id,trigger){const dialog=document.getElementById(id+'-dialog
 document.addEventListener('click',event=>{const trigger=event.target.closest('[data-open]');if(trigger&&showDialog(trigger.dataset.open,trigger))event.preventDefault();const zoom=event.target.closest('[data-zoom]');if(zoom){$('#zoom-image').src=zoom.dataset.zoom;$('#zoom-image').alt=zoom.querySelector('img').alt;$('#zoom-caption').textContent=zoom.dataset.caption||'';showDialog('image',zoom);}const close=event.target.closest('.close-dialog');if(close)close.closest('dialog').close();});
 document.querySelectorAll('dialog.dialog').forEach(dialog=>{dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});dialog.addEventListener('close',()=>{document.body.classList.remove('modal-open');if(opener?.isConnected)opener.focus();});});
 const filters=[...document.querySelectorAll('[data-filter]')];
-filters.forEach(button=>button.addEventListener('click',()=>{const value=button.dataset.filter;filters.forEach(b=>{b.classList.toggle('active',b===button);b.setAttribute('aria-pressed',String(b===button));});let count=0;document.querySelectorAll('[data-categories]').forEach(card=>{card.hidden=value!=='すべて'&&!card.dataset.categories.split('|').includes(value);if(!card.hidden)count++;});$('.result-count').textContent=count+'件の実績';$('#no-results').hidden=count>0;const search=new URLSearchParams(location.search);if(value==='すべて')search.delete('category');else search.set('category',value);history.replaceState(null,'',location.pathname+(search.size?'?'+search:'')+location.hash);}));
-const selectedCategory=new URLSearchParams(location.search).get('category');if(selectedCategory)filters.find(b=>b.dataset.filter===selectedCategory)?.click();
+if(filters.length){
+ const grid=$('#works-grid'),empty=$('#no-results'),results=document.createElement('div');grid.before(results);results.append(grid,empty);
+ const fade=fadeSwitcher(results);let selected='すべて';
+ function select(value,immediate=false){selected=value;filters.forEach(b=>{const active=b.dataset.filter===value;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
+  const search=new URLSearchParams(location.search);if(value==='すべて')search.delete('category');else search.set('category',value);history.replaceState(null,'',location.pathname+(search.size?'?'+search:'')+location.hash);
+  fade(()=>{const all=value==='すべて';$('[data-company-works]').hidden=!all;$('.deliverable-grid').hidden=all;let count=all?document.querySelectorAll('[data-company-works] .work-card').length:0;document.querySelectorAll('[data-deliverable-category]').forEach(card=>{card.hidden=all||card.dataset.deliverableCategory!==value;if(!card.hidden)count++;});$('.result-count').textContent=count+(all?'件の実績':'件の制作物');empty.hidden=count>0;},immediate);
+ }
+ filters.forEach(button=>button.addEventListener('click',()=>{if(selected!==button.dataset.filter)select(button.dataset.filter);}));
+ const raw=new URLSearchParams(location.search).get('category');const initial=raw==='紙・サイン'?'紙':raw==='空間'?'サイン・空間':raw;if(filters.some(b=>b.dataset.filter===initial))select(initial,true);
+}
 const draftKey='onebe-contact-v1',receiptKey='onebe-receipt-v1';
 function loadDraft(){try{const raw=sessionStorage.getItem(draftKey),draft=readStored(raw);if(raw&&!draft)sessionStorage.removeItem(draftKey);return draft;}catch{return null;}}
 function saveDraft(data){sessionStorage.setItem(draftKey,JSON.stringify({savedAt:Date.now(),data:normalizeDraft(data)}));}
@@ -47,14 +70,14 @@ if(form){
   form.addEventListener('input',event=>{count();const id=event.target.name==='topics'?'topics':event.target.id;if(validateDraft(getData()).errors[id]===undefined)clearError(id);});
   form.addEventListener('submit',event=>{event.preventDefault();const {data,errors,valid}=validateDraft(getData());const summary=$('#form-errors');summary.replaceChildren();summary.hidden=true;for(const id of ['company','name','email','topics','message','consent'])clearError(id);
     if(!valid){summary.hidden=false;const p=document.createElement('p');p.textContent='入力内容をご確認ください。';summary.append(p);const ul=document.createElement('ul');for(const[id,text]of Object.entries(errors)){$('#'+id+'-error').textContent=text;const target=id==='topics'?'topic-0':id;$('#'+target).setAttribute('aria-invalid','true');const li=document.createElement('li'),a=document.createElement('a');a.href='#'+target;a.textContent=text;li.append(a);ul.append(li);}summary.append(ul);summary.focus();return;}
-    try{saveDraft(data);location.assign(base+'contact/confirm/');}catch{summary.hidden=false;summary.textContent='このブラウザで入力内容を一時保存できません。ブラウザの設定をご確認いただくか、メールでご相談ください。';summary.focus();}
+    try{saveDraft(data);navigateWithFade(base+'contact/confirm/');}catch{summary.hidden=false;summary.textContent='このブラウザで入力内容を一時保存できません。ブラウザの設定をご確認いただくか、メールでご相談ください。';summary.focus();}
   });
 }
 const confirm=$('#confirmation');
 if(confirm){const draft=loadDraft();if(!draft||!validateDraft(draft).valid){confirm.hidden=true;$('#missing-draft').hidden=false;}else{
   for(const[label,value]of [['会社名・屋号',draft.company||'未記入'],['お名前',draft.name],['メールアドレス',draft.email],['相談したいこと',draft.topics.join('、')],['ご相談内容',draft.message],['ご予算の目安',draft.budget]]){const row=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;row.append(dt,dd);$('#confirmation-values').append(row);}
   let sending=false;$('#send-button').addEventListener('click',async()=>{if(sending)return;sending=true;const button=$('#send-button'),error=$('#send-error'),status=$('#sending-status');error.hidden=true;button.disabled=true;button.textContent='送信しています…';status.textContent='送信が完了するまでお待ちください。';$('#edit-link').setAttribute('aria-disabled','true');const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),20000);
-    try{if(draft.website)throw Error('送信内容を確認できませんでした。フォームから入力し直してください。');const result=await fetch(document.body.dataset.formEndpoint,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({company:draft.company,name:draft.name,email:draft.email,'相談したいこと':draft.topics.join('、'),message:draft.message,'予算':draft.budget,'個人情報の取扱いへの同意':'同意済み',_subject:'【OneBe】サイトからのご相談',_template:'table',_honey:draft.website}),signal:controller.signal});const response=await result.json();if(!result.ok||!isSuccess(response))throw Error('送信を完了できませんでした。時間をおいて再試行するか、info@onebe-create.comへご連絡ください。');try{sessionStorage.setItem(receiptKey,String(Date.now()));sessionStorage.removeItem(draftKey);}catch{}location.assign(base+'thanks/');
+    try{if(draft.website)throw Error('送信内容を確認できませんでした。フォームから入力し直してください。');const result=await fetch(document.body.dataset.formEndpoint,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({company:draft.company,name:draft.name,email:draft.email,'相談したいこと':draft.topics.join('、'),message:draft.message,'予算':draft.budget,'個人情報の取扱いへの同意':'同意済み',_subject:'【OneBe】サイトからのご相談',_template:'table',_honey:draft.website}),signal:controller.signal});const response=await result.json();if(!result.ok||!isSuccess(response))throw Error('送信を完了できませんでした。時間をおいて再試行するか、info@onebe-create.comへご連絡ください。');try{sessionStorage.setItem(receiptKey,String(Date.now()));sessionStorage.removeItem(draftKey);}catch{}navigateWithFade(base+'thanks/');
     }catch(err){error.hidden=false;error.textContent=err.name==='AbortError'?'送信結果を確認できませんでした。重複送信を避けるため、少し時間をおいてご確認ください。入力内容は保持しています。':err.message||'通信に失敗しました。入力内容は保持しています。再試行してください。';error.focus();button.disabled=false;button.textContent='もう一度送信する';status.textContent='';sending=false;$('#edit-link').removeAttribute('aria-disabled');}finally{clearTimeout(timeout);}
   });$('#edit-link').addEventListener('click',event=>{if(sending)event.preventDefault();});
 }}
@@ -161,7 +184,8 @@ Promise.resolve(window.onebeIntroReady).then(initHeadingShuffle);
 // Manual featured works: no timer or automatic rotation.
 document.querySelectorAll('.works-carousel').forEach(carousel=>{
  const slides=[...carousel.querySelectorAll('.works-slide')],thumbs=[...carousel.querySelectorAll('[data-slide]')];let index=0,start;
- const show=n=>{index=(n+slides.length)%slides.length;slides.forEach((s,i)=>s.hidden=i!==index);thumbs.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===index)));carousel.querySelector('.carousel-count').textContent=String(index+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');};
+ const fade=fadeSwitcher(carousel.querySelector('.works-slides'));
+ const show=n=>{index=(n+slides.length)%slides.length;const next=index;thumbs.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===next)));fade(()=>{slides.forEach((s,i)=>s.hidden=i!==next);carousel.querySelector('.carousel-count').textContent=String(next+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');});};
  thumbs.forEach(b=>b.addEventListener('click',()=>show(Number(b.dataset.slide))));
  carousel.querySelectorAll('[data-carousel-step]').forEach(b=>b.addEventListener('click',()=>show(index+Number(b.dataset.carouselStep))));
  carousel.addEventListener('keydown',event=>{if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();show(index+(event.key==='ArrowRight'?1:-1));}});
@@ -173,25 +197,30 @@ document.querySelectorAll('.journal').forEach(journal=>{
  const buttons=[...journal.querySelectorAll('[data-journal-filter]')],cards=[...journal.querySelectorAll('[data-journal-kind]')],empty=journal.querySelector('.journal-empty');
  const results=document.createElement('div');results.className='journal-results';
  journal.querySelector('.blog-grid').before(results);results.append(journal.querySelector('.blog-grid'),empty);
- const motion=matchMedia('(prefers-reduced-motion: reduce)');
- let selected='すべて',revision=0,animation;
+ const fade=fadeSwitcher(results,journal);let selected='すべて';
  const apply=category=>{let count=0;cards.forEach(card=>{const match=category==='すべて'||card.dataset.journalKind===category;card.hidden=!match||count>=Number(journal.dataset.limit);if(match)count++;});empty.hidden=count>0;empty.textContent=count?'':category+'は、公開後にこちらへ掲載します。';};
- async function change(category){
-  selected=category;const current=++revision;
-  const opacity=getComputedStyle(results).opacity;
-  animation?.cancel();
-  buttons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.journalFilter===category)));
-  if(motion.matches||!results.animate){apply(category);results.inert=false;journal.removeAttribute('aria-busy');return;}
-  results.inert=true;journal.setAttribute('aria-busy','true');
-  try{
-   animation=results.animate([{opacity},{opacity:0}],{duration:140,easing:'ease-out',fill:'forwards'});
-   await animation.finished;if(current!==revision)return;
-   apply(category);animation.cancel();
-   animation=results.animate([{opacity:0},{opacity:1}],{duration:220,easing:'ease-out',fill:'forwards'});
-   await animation.finished;
-  }catch{/* A newer selection cancels the previous transition. */}
-  finally{if(current===revision){animation?.cancel();results.inert=false;journal.removeAttribute('aria-busy');}}
- }
- buttons.forEach(button=>button.addEventListener('click',()=>{if(button.dataset.journalFilter!==selected)change(button.dataset.journalFilter);}));
- motion.addEventListener('change',()=>{if(motion.matches)change(selected);});
+ buttons.forEach(button=>button.addEventListener('click',()=>{const category=button.dataset.journalFilter;if(category===selected)return;selected=category;buttons.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));fade(()=>apply(category));}));
+});
+
+let pageLeaving=false,pageExitAnimation;
+function navigateWithFade(href){
+ if(pageLeaving)return;const motion=matchMedia('(prefers-reduced-motion: reduce)');
+ if(motion.matches||!document.body.animate){location.assign(href);return;}
+ pageLeaving=true;
+ pageExitAnimation=document.body.animate([{opacity:1},{opacity:0}],{duration:140,easing:'ease-out',fill:'forwards'});
+ const go=()=>{try{sessionStorage.setItem('onebe-page-enter',String(Date.now()));}catch{}location.assign(href);};
+ pageExitAnimation.finished.then(go,go);
+ setTimeout(()=>{pageExitAnimation?.cancel();pageLeaving=false;},2000);
+}
+document.addEventListener('click',event=>{
+ if(event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
+ const anchor=event.target.closest('a[href]');if(!anchor||anchor.hasAttribute('download')||(anchor.target&&anchor.target!=='_self'))return;
+ const target=new URL(anchor.href,location.href);
+ if(target.origin!==location.origin||!target.pathname.startsWith(base)||(target.pathname===location.pathname&&target.search===location.search))return;
+ event.preventDefault();navigateWithFade(target.href);
+});
+window.addEventListener('pageshow',event=>{
+ pageExitAnimation?.cancel();pageLeaving=false;
+ const back=event.persisted||performance.getEntriesByType('navigation')[0]?.type==='back_forward';
+ if(back&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('page-enter');setTimeout(()=>document.documentElement.classList.remove('page-enter'),300);}
 });
