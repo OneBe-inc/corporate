@@ -10,7 +10,7 @@ for(const width of [390,834,1440])test(`blog and news navigation at ${width}px`,
   await page.locator('.blog-image img').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.screenshot({path:`reports/updates-${width}.png`});
-  await page.locator('#news .news-list a').first().click();
+  await page.locator('#news .hero-news-item').first().click();
   await expect(page.locator('h1')).toHaveText('ブログ・ニュース欄を追加しました。');
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content',/noindex/);
   await page.getByRole('link',{name:'ニュース一覧に戻る'}).click();

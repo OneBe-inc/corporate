@@ -4,7 +4,7 @@ const videoPath = '**/assets/onebe-loading-v2.mp4';
 const intro = page => page.getByRole('dialog', {name: 'OneBeのオープニング', exact: true});
 const skip = page => page.getByRole('button', {name: '動画をスキップしてサイトを表示'});
 
-test('compact PC intro plays at double speed and reveals the site in about 3.7 seconds', async ({page}) => {
+test('compact PC intro plays at triple speed and reveals the site in about 2.5 seconds', async ({page}) => {
   await page.setViewportSize({width: 1440, height: 1200});
   await page.emulateMedia({reducedMotion: 'no-preference'});
   const errors = [], videoRequests = [];
@@ -17,7 +17,7 @@ test('compact PC intro plays at double speed and reveals the site in about 3.7 s
     muted: video.muted, inline: video.playsInline, duration: video.duration, rate: video.playbackRate,
     width: video.videoWidth, height: video.videoHeight, fit: getComputedStyle(video).objectFit,
   }));
-  expect(state).toEqual({muted: true, inline: true, duration: 10, rate: 2, width: 1920, height: 1080, fit: 'contain'});
+  expect(state).toEqual({muted: true, inline: true, duration: 10, rate: 3, width: 1920, height: 1080, fit: 'contain'});
   const videoBox = await page.locator('#intro-loader video').boundingBox();
   expect(videoBox.width).toBeLessThanOrEqual(800);
   expect(videoBox.x).toBeGreaterThanOrEqual(320);
@@ -46,9 +46,9 @@ test('compact PC intro plays at double speed and reveals the site in about 3.7 s
   expect(timing.pausedAt).toBeGreaterThanOrEqual(7.35);
   expect(timing.pausedAt).toBeLessThan(7.6);
   expect(timing.removedAt - timing.pauseTime).toBeLessThan(100);
-  const playbackSeconds = (timing.pauseTime - timing.observedAt) / 1000 + timing.observedMediaTime / 2;
-  expect(playbackSeconds).toBeGreaterThan(3.5);
-  expect(playbackSeconds).toBeLessThan(4.2);
+  const playbackSeconds = (timing.pauseTime - timing.observedAt) / 1000 + timing.observedMediaTime / 3;
+  expect(playbackSeconds).toBeGreaterThan(2.3);
+  expect(playbackSeconds).toBeLessThan(3.0);
   await test.info().attach('intro-timing', {body: JSON.stringify({...timing, playbackSeconds}), contentType: 'application/json'});
   await expect(page.locator('main h2').first()).toHaveClass(/is-shuffling/);
   await expect(page.locator('html')).not.toHaveClass(/intro-active/);

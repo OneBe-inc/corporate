@@ -92,11 +92,11 @@
     dialog.showModal();
     document.documentElement.classList.add('intro-active');
     allowBriefWait(2500);
-    maximumTimer = setTimeout(() => finish('timeout', true), 12500);
+    maximumTimer = setTimeout(() => finish('timeout', true), 6000);
     video.muted = true;
     video.playsInline = true;
     video.src = video.dataset.src;
-    video.playbackRate = 2;
+    video.playbackRate = 3;
     video.play().catch(() => finish('autoplay-blocked', true));
   } catch {
     finish('unsupported', true);
