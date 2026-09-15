@@ -4,7 +4,7 @@ const videoPath = '**/assets/onebe-loading-v2.mp4';
 const intro = page => page.getByRole('dialog', {name: 'OneBeのオープニング', exact: true});
 const skip = page => page.getByRole('button', {name: '動画をスキップしてサイトを表示'});
 
-test('compact PC intro plays at triple speed and reveals the site in about 2.5 seconds', async ({page}) => {
+test('compact PC intro plays at triple speed then holds the final frame for half a second', async ({page}) => {
   await page.setViewportSize({width: 1440, height: 1200});
   await page.emulateMedia({reducedMotion: 'no-preference'});
   const errors = [], videoRequests = [];
@@ -45,7 +45,8 @@ test('compact PC intro plays at triple speed and reveals the site in about 2.5 s
   const timing = await page.evaluate(() => window.introTiming);
   expect(timing.pausedAt).toBeGreaterThanOrEqual(7.35);
   expect(timing.pausedAt).toBeLessThan(7.6);
-  expect(timing.removedAt - timing.pauseTime).toBeLessThan(100);
+  expect(timing.removedAt - timing.pauseTime).toBeGreaterThanOrEqual(480);
+  expect(timing.removedAt - timing.pauseTime).toBeLessThan(800);
   const playbackSeconds = (timing.pauseTime - timing.observedAt) / 1000 + timing.observedMediaTime / 3;
   expect(playbackSeconds).toBeGreaterThan(2.3);
   expect(playbackSeconds).toBeLessThan(3.0);

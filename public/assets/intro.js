@@ -27,7 +27,7 @@
   const options = {signal: events.signal};
   // The supplied video finishes its logo/guide motion at 7.35s; the rest is a still hold.
   const motionEnd = 7.35;
-  let finished = false, stallTimer, maximumTimer, playbackFrame;
+  let finished = false, holding = false, stallTimer, maximumTimer, playbackFrame, holdTimer;
 
   function finish(reason, immediate = false) {
     if (finished) return;
@@ -35,8 +35,9 @@
     events.abort();
     clearTimeout(stallTimer);
     clearTimeout(maximumTimer);
+    clearTimeout(holdTimer);
     cancelAnimationFrame(playbackFrame);
-    video.pause();
+    if (!video.paused) video.pause();
 
     const reveal = () => {
       if (dialog.open) dialog.close();
@@ -61,8 +62,13 @@
   }
 
   function watchMotionEnd() {
+    if (finished || holding) return;
     if (video.currentTime >= motionEnd) {
-      finish('motion-complete', true);
+      holding = true;
+      video.pause();
+      clearTimeout(stallTimer);
+      clearTimeout(maximumTimer);
+      holdTimer = setTimeout(() => finish('motion-complete', true), 500);
       return;
     }
     playbackFrame = requestAnimationFrame(watchMotionEnd);
