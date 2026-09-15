@@ -1,11 +1,12 @@
 import {test,expect} from '@playwright/test';
+import {blogPosts} from '../src/updates.mjs';
 for(const width of [390,834,1440])test(`blog and news navigation at ${width}px`,async({page})=>{
   await page.setViewportSize({width,height:1000});
   await page.emulateMedia({reducedMotion:'reduce'});
   await page.goto(process.env.UPDATES_BASE||'./');
   await page.locator('#blog').scrollIntoViewIfNeeded();
-  await expect(page.locator('.blog-card')).toHaveCount(2);
-  await expect(page.locator('.blog-card a').first()).toHaveAttribute('href','https://note.com/isseimasuya/n/nf09b0b39cf4e');
+  await expect(page.locator('.blog-card')).toHaveCount(Math.min(3,blogPosts.length));
+  await expect(page.locator('.blog-card a').first()).toHaveAttribute('href',blogPosts[0].href);
   await page.locator('.blog-image img').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.screenshot({path:`reports/updates-${width}.png`});

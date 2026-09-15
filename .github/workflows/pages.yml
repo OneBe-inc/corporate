@@ -3,8 +3,10 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: '17 * * * *'
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 concurrency:
@@ -13,6 +15,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      publish: ${{ steps.publish.outputs.value }}
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
@@ -20,14 +24,42 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
+      - name: Verify RSS synchronization
+        run: node --test tests/note-sync.test.mjs
+      - name: Refresh note articles
+        id: note
+        run: node scripts/sync-note.mjs
+      - name: Decide whether to publish
+        id: publish
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          NOTE_CHANGED: ${{ steps.note.outputs.publish }}
+        run: |
+          if [ "$EVENT_NAME" != "schedule" ] || [ "$NOTE_CHANGED" = "true" ]; then
+            echo "value=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=false" >> "$GITHUB_OUTPUT"
+          fi
       - run: npm test
+        if: steps.publish.outputs.value == 'true'
+      - name: Save verified note snapshot
+        if: steps.note.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/note-posts.json
+          git commit -m "Refresh published note articles"
+          git push origin HEAD:main
       - uses: actions/configure-pages@v5
+        if: steps.publish.outputs.value == 'true'
       - uses: actions/upload-pages-artifact@v4
+        if: steps.publish.outputs.value == 'true'
         with:
           path: dist
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    if: needs.build.outputs.publish == 'true'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
