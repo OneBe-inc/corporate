@@ -29,3 +29,12 @@ h2.is-shuffling{position:relative}
 .heading-shuffle-source{opacity:0}
 .heading-shuffle-visual{position:absolute;inset:0;display:block;overflow:hidden;pointer-events:none;user-select:none}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}.heading-shuffle-source{opacity:1}.heading-shuffle-visual{display:none}}
+
+/* Portfolio assets: show complete artwork and preserve documentary photo framing. */
+.work-image img{object-fit:contain;background:#f5f6f8}
+.work-detail>.work-gallery-section{padding-bottom:72px}
+.work-detail .zoom-trigger img{aspect-ratio:auto;max-height:720px;object-fit:contain}
+.work-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
+.work-gallery figure:only-child{grid-column:1/-1;max-width:900px;width:100%;margin-inline:auto}
+.work-gallery .zoom-trigger img{aspect-ratio:3/2;object-fit:contain}
+@media(max-width:767px){.work-gallery{grid-template-columns:1fr;gap:32px}.work-detail>.work-gallery-section{padding-bottom:48px}.work-detail .zoom-trigger>span{position:static;width:max-content;margin-left:auto}.work-detail .zoom-trigger{padding-bottom:8px}}
