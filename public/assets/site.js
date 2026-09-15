@@ -171,5 +171,27 @@ document.querySelectorAll('.works-carousel').forEach(carousel=>{
 });
 document.querySelectorAll('.journal').forEach(journal=>{
  const buttons=[...journal.querySelectorAll('[data-journal-filter]')],cards=[...journal.querySelectorAll('[data-journal-kind]')],empty=journal.querySelector('.journal-empty');
- buttons.forEach(button=>button.addEventListener('click',()=>{const category=button.dataset.journalFilter;let count=0;cards.forEach(card=>{const match=category==='すべて'||card.dataset.journalKind===category;card.hidden=!match||count>=Number(journal.dataset.limit);if(match)count++;});buttons.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));empty.hidden=count>0;empty.textContent=count?'':category+'は、公開後にこちらへ掲載します。';}));
+ const results=document.createElement('div');results.className='journal-results';
+ journal.querySelector('.blog-grid').before(results);results.append(journal.querySelector('.blog-grid'),empty);
+ const motion=matchMedia('(prefers-reduced-motion: reduce)');
+ let selected='すべて',revision=0,animation;
+ const apply=category=>{let count=0;cards.forEach(card=>{const match=category==='すべて'||card.dataset.journalKind===category;card.hidden=!match||count>=Number(journal.dataset.limit);if(match)count++;});empty.hidden=count>0;empty.textContent=count?'':category+'は、公開後にこちらへ掲載します。';};
+ async function change(category){
+  selected=category;const current=++revision;
+  const opacity=getComputedStyle(results).opacity;
+  animation?.cancel();
+  buttons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.journalFilter===category)));
+  if(motion.matches||!results.animate){apply(category);results.inert=false;journal.removeAttribute('aria-busy');return;}
+  results.inert=true;journal.setAttribute('aria-busy','true');
+  try{
+   animation=results.animate([{opacity},{opacity:0}],{duration:140,easing:'ease-out',fill:'forwards'});
+   await animation.finished;if(current!==revision)return;
+   apply(category);animation.cancel();
+   animation=results.animate([{opacity:0},{opacity:1}],{duration:220,easing:'ease-out',fill:'forwards'});
+   await animation.finished;
+  }catch{/* A newer selection cancels the previous transition. */}
+  finally{if(current===revision){animation?.cancel();results.inert=false;journal.removeAttribute('aria-busy');}}
+ }
+ buttons.forEach(button=>button.addEventListener('click',()=>{if(button.dataset.journalFilter!==selected)change(button.dataset.journalFilter);}));
+ motion.addEventListener('change',()=>{if(motion.matches)change(selected);});
 });
