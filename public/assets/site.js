@@ -224,3 +224,22 @@ window.addEventListener('pageshow',event=>{
  const back=event.persisted||performance.getEntriesByType('navigation')[0]?.type==='back_forward';
  if(back&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('page-enter');setTimeout(()=>document.documentElement.classList.remove('page-enter'),300);}
 });
+
+// Tablet navigation is an ordinary side navigation, not a modal dialog.
+(()=>{
+ const toggle=document.querySelector('.menu-toggle'),source=document.querySelector('#menu-dialog .menu-links');if(!toggle||!source)return;
+ const tablet=matchMedia('(min-width:768px) and (max-width:1199px)');
+ const panel=document.createElement('aside');panel.id='tablet-navigation';panel.className='tablet-navigation';panel.hidden=true;
+ panel.setAttribute('aria-label','サイトメニュー');
+ panel.innerHTML='<div class="tablet-menu-top"><span>MENU</span><button type="button" class="icon-button" aria-label="メニューを閉じる">×</button></div>';
+ const nav=source.cloneNode(true);nav.className='tablet-menu-links';nav.setAttribute('aria-label','タブレットナビゲーション');
+ for(const a of nav.querySelectorAll('a'))if(new URL(a.href).pathname===location.pathname)a.setAttribute('aria-current','page');
+ panel.append(nav);const foot=document.createElement('div');foot.className='tablet-menu-foot';foot.innerHTML='<a href="mailto:info@onebe-create.com">info@onebe-create.com</a><a href="'+base+'privacy/">プライバシーポリシー</a>';panel.append(foot);document.body.append(panel);
+ let open=false,timer;
+ function setOpen(value,restore=false){clearTimeout(timer);open=value;toggle.setAttribute('aria-expanded',String(value));if(value){panel.hidden=false;panel.inert=false;requestAnimationFrame(()=>{if(open){document.body.classList.add('tablet-menu-open');panel.querySelector('button').focus({preventScroll:true});}});}else{document.body.classList.remove('tablet-menu-open');panel.inert=true;timer=setTimeout(()=>panel.hidden=true,280);if(restore)toggle.focus({preventScroll:true});}}
+ function sync(){if(open)setOpen(false);if(tablet.matches){toggle.removeAttribute('data-open');toggle.removeAttribute('aria-haspopup');toggle.setAttribute('aria-controls',panel.id);toggle.setAttribute('aria-expanded','false');const dialog=document.querySelector('#menu-dialog');if(dialog.open)dialog.close();}else{toggle.dataset.open='menu';toggle.setAttribute('aria-haspopup','dialog');toggle.setAttribute('aria-controls','menu-dialog');toggle.removeAttribute('aria-expanded');}}
+ toggle.addEventListener('click',()=>{if(tablet.matches)setOpen(!open);});
+ panel.querySelector('button').addEventListener('click',()=>setOpen(false,true));
+ document.addEventListener('keydown',event=>{if(event.key==='Escape'&&open){event.preventDefault();setOpen(false,true);}});
+ tablet.addEventListener('change',sync);window.addEventListener('pageshow',()=>{if(open)setOpen(false);});sync();
+})();
