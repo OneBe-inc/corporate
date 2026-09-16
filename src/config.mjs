@@ -1,7 +1,7 @@
 export const site = {
   name: 'OneBe',
-  base: '/corporate/',
-  origin: 'https://onebe-inc.github.io',
+  base: '/',
+  origin: 'https://onebe-create.com',
   indexingEnabled: false,
   email: 'info@onebe-create.com',
   formEndpoint: 'https://formsubmit.co/ajax/info@onebe-create.com',
