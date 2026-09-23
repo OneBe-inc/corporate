@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://onebe-create.com/sitemap.xml

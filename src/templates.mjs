@@ -68,11 +68,11 @@ export function pageDefinitions(){return [
   {path:'services/',title:'支援内容・サービス',description:'ブランドの方向性、ロゴ、Web、印刷物、サイン、店舗の表現監修。創業パッケージ、定額Webサービス、OneBeレターもご相談いただけます。',render:servicesIndex,active:'services/'},
   {path:'about/',title:'OneBeについて',description:'本気の想いを、本気で伝える。OneBeの考え方、代表・舛谷一成のプロフィール、事業内容とお問い合わせ先をご紹介します。',render:about,active:'about/'},
   {path:'contact/',title:'ブランド・デザインのご相談',description:'つくるものが決まっていなくても大丈夫です。事業や伝え方のお悩み、Web・ロゴ・印刷物などのご相談をOneBeへお聞かせください。',render:contact},
-  {path:'contact/confirm/',title:'入力内容の確認',description:'OneBeへのお問い合わせ内容を確認して送信します。',render:confirm,noindex:true},
-  {path:'thanks/',title:'ご相談ありがとうございます',description:'OneBeへのご相談後の流れと、OneBeを知るためのご案内。',render:thanks,noindex:true},
+  {path:'contact/confirm/',title:'入力内容の確認',description:'OneBeへのお問い合わせ内容を確認して送信します。',render:confirm},
+  {path:'thanks/',title:'ご相談ありがとうございます',description:'OneBeへのご相談後の流れと、OneBeを知るためのご案内。',render:thanks},
   {path:'privacy/',title:'プライバシーポリシー',description:'OneBeへのお問い合わせでお預かりする情報、利用目的、外部サービス、入力の一時保存、お問い合わせ先について。',render:privacy},
   ...works.map(w=>({path:'works/'+w.id+'/',title:w.name+'の制作・支援実績',description:w.description,render:()=>workDetail(w),active:'works/'})),
   ...services.map(s=>({path:'services/'+s.id+'/',title:s.name,description:s.description,render:()=>serviceDetail(s),active:'services/',service:true})),
   ...packages.map(p=>({path:'services/'+p.id+'/',title:p.name,description:p.description,render:()=>packageDetail(p),active:'services/',service:true})),
-  {path:'404.html',title:'ページが見つかりません',description:'お探しのページが見つかりませんでした。OneBeのホームや支援内容からお探しください。',render:notFound,noindex:true}
+  {path:'404.html',title:'ページが見つかりません',description:'お探しのページが見つかりませんでした。OneBeのホームや支援内容からお探しください。',render:notFound}
 ];}

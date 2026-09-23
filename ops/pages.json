@@ -4,7 +4,7 @@
     "title": "記事一覧",
     "description": "OneBeのブログ・お知らせ・プレスリリースをお届けします。",
     "url": "https://onebe-create.com/journal/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/journal/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -14,7 +14,7 @@
     "title": "お知らせ",
     "description": "株式会社OneBeからのお知らせ。サイトの更新や活動に関する情報をご案内します。",
     "url": "https://onebe-create.com/news/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/news/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -24,7 +24,7 @@
     "title": "ブログ・ニュース欄を追加しました。",
     "description": "OneBeのコーポレートサイトに、ブログとニュースの欄を追加しました。",
     "url": "https://onebe-create.com/news/blog-news/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/news/blog-news/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -34,7 +34,7 @@
     "title": "OneBe｜ブランディング・Web・グラフィックデザイン",
     "description": "会社や事業の想いを整理し、言葉とデザインで伝わる形へ。OneBeはブランドの方向づくりからWeb、印刷物、店舗の表現まで伴走します。",
     "url": "https://onebe-create.com/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -44,7 +44,7 @@
     "title": "制作・支援実績",
     "description": "UMUI、そよかぜ、VAIZOなど、OneBeの制作・支援実績。ブランドの想いをWeb、紙、店舗などへ展開した担当範囲をご紹介します。",
     "url": "https://onebe-create.com/works/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/works/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -54,7 +54,7 @@
     "title": "支援内容・サービス",
     "description": "ブランドの方向性、ロゴ、Web、印刷物、サイン、店舗の表現監修。創業パッケージ、定額Webサービス、OneBeレターもご相談いただけます。",
     "url": "https://onebe-create.com/services/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/services/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -64,7 +64,7 @@
     "title": "OneBeについて",
     "description": "本気の想いを、本気で伝える。OneBeの考え方、代表・舛谷一成のプロフィール、事業内容とお問い合わせ先をご紹介します。",
     "url": "https://onebe-create.com/about/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/about/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -74,7 +74,7 @@
     "title": "ブランド・デザインのご相談",
     "description": "つくるものが決まっていなくても大丈夫です。事業や伝え方のお悩み、Web・ロゴ・印刷物などのご相談をOneBeへお聞かせください。",
     "url": "https://onebe-create.com/contact/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/contact/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -84,7 +84,7 @@
     "title": "入力内容の確認",
     "description": "OneBeへのお問い合わせ内容を確認して送信します。",
     "url": "https://onebe-create.com/contact/confirm/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/contact/confirm/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -94,7 +94,7 @@
     "title": "ご相談ありがとうございます",
     "description": "OneBeへのご相談後の流れと、OneBeを知るためのご案内。",
     "url": "https://onebe-create.com/thanks/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/thanks/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -104,7 +104,7 @@
     "title": "プライバシーポリシー",
     "description": "OneBeへのお問い合わせでお預かりする情報、利用目的、外部サービス、入力の一時保存、お問い合わせ先について。",
     "url": "https://onebe-create.com/privacy/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/privacy/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -114,7 +114,7 @@
     "title": "UMUIの制作・支援実績",
     "description": "UMUIのコーポレートロゴとUMUI Clipのサービスロゴを制作。コーポレートサイト、店舗デザイン、メディアの監修まで、事業に触れる複数の接点を支援しました。",
     "url": "https://onebe-create.com/works/umui/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/works/umui/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -124,7 +124,7 @@
     "title": "そよかぜの制作・支援実績",
     "description": "子育て中に頼れる人が少なかった、代表自身の経験から生まれた託児所そよかぜ。その想いをキャッチコピーとコンセプトにし、ポスター、パンフレット、店舗看板へ展開しました。",
     "url": "https://onebe-create.com/works/soyokaze/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/works/soyokaze/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -134,7 +134,7 @@
     "title": "VAIZOの制作・支援実績",
     "description": "V/ENTER WEBのWebページをはじめ、コーポレートサイト、パンフレット、V/COREのチラシ、名刺の制作を担当。Webと紙を通して、会社やサービスを伝える支援です。",
     "url": "https://onebe-create.com/works/vaizo/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/works/vaizo/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -144,7 +144,7 @@
     "title": "ontsugiの制作・支援実績",
     "description": "「恩を紡ぐ」をテーマに、代表の想いや家族への想いを重ねた、株式会社ontsugiのコーポレートロゴを制作しました。",
     "url": "https://onebe-create.com/works/ontsugi/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/works/ontsugi/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -154,7 +154,7 @@
     "title": "ブランドの方向性",
     "description": "事業の背景や大切にしている想いを伺い、誰に何を届けるのかを一緒に整理します。言葉と表現のよりどころをつくります。",
     "url": "https://onebe-create.com/services/direction/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/services/direction/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -164,7 +164,7 @@
     "title": "ロゴ・ビジュアル",
     "description": "事業の背景と使われる場面を踏まえ、ロゴやブランドの見え方を設計します。紙、Web、サインへの展開も考えてつくります。",
     "url": "https://onebe-create.com/services/logo/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/services/logo/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -174,7 +174,7 @@
     "title": "Webサイト",
     "description": "情報の整理からデザイン、実装まで。訪れた人が必要な情報に迷わずたどり着けるWebサイトをつくります。",
     "url": "https://onebe-create.com/services/web/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/services/web/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -184,7 +184,7 @@
     "title": "印刷物・グラフィック",
     "description": "会社案内、パンフレット、名刺、チラシなど。使う場面と届ける相手から考え、言葉とビジュアルを整えます。",
     "url": "https://onebe-create.com/services/print/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/services/print/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -194,7 +194,7 @@
     "title": "広告・サイン",
     "description": "看板や交通広告など、見られる距離や時間を踏まえて設計します。伝える内容と、必要な情報の優先順位を整理します。",
     "url": "https://onebe-create.com/services/sign/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/services/sign/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -204,7 +204,7 @@
     "title": "店舗・表現の監修",
     "description": "店舗や各種制作物、メディアの表現をブランドの方向性に合わせて整えます。役割分担と対応範囲を確認しながら進めます。",
     "url": "https://onebe-create.com/services/space/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/services/space/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -214,7 +214,7 @@
     "title": "創業パッケージ",
     "description": "ロゴ、名刺、Webなど、創業時に必要なものを一緒に整理。優先順位をつけて、事業の最初の一歩を形にします。",
     "url": "https://onebe-create.com/services/startup/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/services/startup/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -224,7 +224,7 @@
     "title": "定額Webサービス",
     "description": "Webサイトを持つことから、その後の更新まで。必要な機能や運用の体制に合わせて、継続して活用する方法を考えます。",
     "url": "https://onebe-create.com/services/monthly/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/services/monthly/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -234,7 +234,7 @@
     "title": "OneBeレター",
     "description": "届けたい企業に、事業の魅力を手紙で伝える営業支援。相手を考えた言葉とデザインで、まだ出会っていないお客様との接点をつくります。",
     "url": "https://onebe-create.com/services/letter/",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/services/letter/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
@@ -244,7 +244,7 @@
     "title": "ページが見つかりません",
     "description": "お探しのページが見つかりませんでした。OneBeのホームや支援内容からお探しください。",
     "url": "https://onebe-create.com/404.html",
-    "index": false,
+    "index": true,
     "canonical": "https://onebe-create.com/404.html",
     "source": "Approved OneBe design / supplied profile / user-provided email",
     "updated": "2026-09-14"
