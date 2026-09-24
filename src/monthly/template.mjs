@@ -36,8 +36,8 @@ export function renderPage(){return `<!doctype html>
 <meta property="og:type" content="website"><meta property="og:locale" content="ja_JP"><meta property="og:site_name" content="OneBe">
 <meta property="og:title" content="こだわりまで伝わる、あなただけのホームページ。｜OneBe">
 <meta property="og:description" content="想い・強みの整理から、公開後の更新・改善まで。OneBeの定額Webサービス。月額10,000円〜税込。">
-<meta property="og:url" content="${site.url}"><meta property="og:image" content="${site.url}assets/ogp.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="${site.url}"><meta property="og:image" content="${site.url}assets/ogp-20260925.jpg"><meta property="og:image:width" content="1672"><meta property="og:image:height" content="941">
+<meta property="og:image:type" content="image/jpeg"><meta property="og:image:alt" content="OneBe 定額Webサービスのご案内"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="${site.url}assets/ogp-20260925.jpg">
 <link rel="preload" as="image" href="assets/salon-portrait.webp">
 <link rel="stylesheet" href="assets/styles.css">
 <script type="application/ld+json">${JSON.stringify(schema)}</script>
