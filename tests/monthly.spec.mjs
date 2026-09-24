@@ -45,3 +45,17 @@ test('supplied restaurant screen opens in sample preview',async({page})=>{
  await expect(page.locator('.dialog-preview img')).toBeVisible();await page.keyboard.press('Escape');
  await expect(page.locator('.sample-dialog')).not.toBeVisible();
 });
+for(const width of [390,1440])test(`gallery actions and supplied desktop image at ${width}px`,async({page})=>{
+ await page.setViewportSize({width,height:900});await page.emulateMedia({reducedMotion:'reduce'});await page.goto('/services/monthly/');
+ await page.locator('[data-sample="sola"]').click();
+ const dialog=page.locator('.sample-dialog');const visit=dialog.locator('.dialog-visit');
+ await expect(visit).toHaveAttribute('href','https://onebe-inc.github.io/sample_food1/');
+ await page.route('https://onebe-inc.github.io/sample_food1/',r=>r.fulfill({body:'<!doctype html><title>Sample destination</title>',contentType:'text/html'}));
+ const popupPromise=page.waitForEvent('popup');await visit.click();const popup=await popupPromise;await popup.waitForLoadState();expect(popup.url()).toBe('https://onebe-inc.github.io/sample_food1/');await popup.close();
+ await dialog.locator('.dialog-next').click();await expect(page.locator('#dialog-title')).toHaveText('Lumière');await expect(visit).toBeHidden();
+ await dialog.locator('.dialog-prev').click();await expect(visit).toBeVisible();
+ expect(await dialog.evaluate(e=>e.scrollWidth<=e.clientWidth+1)).toBe(true);
+ await page.keyboard.press('Escape');await expect(dialog).not.toBeVisible();
+ const image=page.locator('.desktop-screenshot');await image.scrollIntoViewIfNeeded();await expect(image).toHaveAttribute('src','assets/onebe-restaurant-desktop.png');
+ await expect.poll(()=>image.evaluate(e=>e.naturalWidth)).toBeGreaterThan(0);
+});
