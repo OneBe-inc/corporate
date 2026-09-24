@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
+import {renderPage as renderMonthly} from '../src/monthly/template.mjs';
 import {site,absolute} from '../src/config.mjs';
 import {layout,pageDefinitions} from '../src/templates.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),out=path.join(root,'dist');
@@ -11,7 +12,15 @@ const introScript=fs.readFileSync(path.join(root,'public/assets/intro.js'),'utf8
 fs.copyFileSync(path.join(root,'src/note-posts.json'),path.join(out,'assets/note-posts.json'));
 const version=createHash('sha256').update(['site.css','site.js','form.mjs','intro.js','analytics.js'].map(x=>fs.readFileSync(path.join(root,'public/assets',x),'utf8')).join('')).digest('hex').slice(0,12);
 const pages=pageDefinitions().map(page=>({...page,noindex:!site.indexingEnabled||Boolean(page.noindex)}));
-for(const p of pages){const target=path.join(out,p.path.endsWith('.html')?p.path:p.path+'index.html');fs.mkdirSync(path.dirname(target),{recursive:true});const intro=['contact/confirm/','thanks/','404.html'].includes(p.path)?'':introScript;fs.writeFileSync(target,layout(p,p.render(),intro).replaceAll('?v='+site.updated,'?v='+version));}
+let monthlyHTML=renderMonthly();
+for(const file of ['styles.css','main.js','analytics.js']){
+ const content=fs.readFileSync(path.join(root,'src/monthly',file));
+ const hash=createHash('sha256').update(content).digest('hex').slice(0,12);
+ fs.writeFileSync(path.join(out,'services/monthly/assets',file),content);
+ monthlyHTML=monthlyHTML.replaceAll('assets/'+file,'assets/'+file+'?v='+hash);
+}
+if(!site.indexingEnabled)monthlyHTML=monthlyHTML.replace('index,follow,max-image-preview:large','noindex,follow');
+for(const p of pages){const target=path.join(out,p.path.endsWith('.html')?p.path:p.path+'index.html');fs.mkdirSync(path.dirname(target),{recursive:true});const intro=['contact/confirm/','thanks/','404.html'].includes(p.path)?'':introScript;fs.writeFileSync(target,(p.path==='services/monthly/'?monthlyHTML:layout(p,p.render(),intro)).replaceAll('?v='+site.updated,'?v='+version));}
 fs.writeFileSync(path.join(out,'assets/site.js'),fs.readFileSync(path.join(out,'assets/site.js'),'utf8').replace("'./form.mjs'","'./form.mjs?v="+version+"'"));
 fs.writeFileSync(path.join(out,'.nojekyll'),'');
 fs.writeFileSync(path.join(out,'sitemap.xml'),'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+pages.filter(p=>!p.noindex&&p.path!=='404.html').map(p=>'<url><loc>'+absolute(p.path)+'</loc><lastmod>'+site.updated+'</lastmod></url>').join('')+'</urlset>');
