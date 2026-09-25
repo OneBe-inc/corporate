@@ -9,7 +9,7 @@ function run(url, referrer = '') {
     referrer, createElement: () => ({}), head: {appendChild: el => scripts.push(el)}
   }};
   vm.runInNewContext(source, context);
-  return {scripts, calls: context.window.dataLayer?.map(x => Array.from(x)) || []};
+  return {scripts, window: context.window, get calls(){return context.window.dataLayer?.map(x => Array.from(x)) || [];} };
 }
 test('production emits one config and strips query/hash from page and referrer', () => {
   const result = run('https://onebe-create.com/contact/?email=private@example.com#secret', 'https://example.com/path?name=private');
@@ -22,6 +22,18 @@ test('production emits one config and strips query/hash from page and referrer',
   assert.equal(config.allow_google_signals, false);
   assert.equal(config.allow_ad_personalization_signals, false);
   assert.ok(!JSON.stringify(result).includes('private'));
+});
+test('successful submission hook records one lead with fixed non-personal fields', () => {
+  const result = run('https://onebe-create.com/contact/confirm/?email=private#secret');
+  result.window.onebeTrackLead(); result.window.onebeTrackLead();
+  const events = result.calls.filter(x => x[0] === 'event');
+  assert.equal(events.length, 1);
+  assert.equal(events[0][1], 'generate_lead');
+  assert.equal(events[0][2].form_id, 'contact');
+  assert.ok(!JSON.stringify(events).includes('private'));
+  const direct = run('https://onebe-create.com/thanks/');
+  direct.window.onebeTrackLead();
+  assert.equal(direct.calls.filter(x => x[0] === 'event').length, 0);
 });
 test('local previews and other hosts never load analytics', () => {
   for (const url of ['http://localhost:4173/', 'https://onebe-inc.github.io/corporate/', 'http://onebe-create.com/']) {

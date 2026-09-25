@@ -1,0 +1,16 @@
+<script>
+(function(w,d){
+  if(w.__onebeClarityStarted || w.location.hostname !== 'onebe-create.com' || w.location.protocol !== 'https:') return;
+  if(/^\/(contact|thanks)(\/|$)/.test(w.location.pathname) || w.location.search || w.location.hash) return;
+  try {
+    var saved=JSON.parse(w.localStorage.getItem('onebe-heatmap-choice-v1'));
+    if(!saved || saved.choice !== 'yes' || saved.until <= Date.now()) return;
+    if(d.referrer && new URL(d.referrer).search) return;
+  } catch(e) { return; }
+  w.__onebeClarityStarted=true;
+  d.body.setAttribute('data-clarity-mask','True');
+  w.clarity=w.clarity||function(){(w.clarity.q=w.clarity.q||[]).push(arguments);};
+  w.clarity('consentv2',{analytics_Storage:'granted',ad_Storage:'denied'});
+  var s=d.createElement('script');s.async=true;s.src='https://www.clarity.ms/tag/yo0ok90i83';d.head.appendChild(s);
+})(window,document);
+</script>

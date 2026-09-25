@@ -1,0 +1,12 @@
+.onebe-heatmap-choice{position:fixed;z-index:1000;bottom:20px;left:20px;width:min(430px,calc(100% - 40px));box-sizing:border-box;padding:22px;background:#fff;color:#17213a;border:1px solid #d8dce3;border-radius:12px;box-shadow:0 6px 30px #17213a24;font:14px/1.75 system-ui,sans-serif;text-align:left;max-height:calc(100dvh - 40px);overflow:auto}
+.onebe-heatmap-choice[hidden]{display:none}
+.onebe-heatmap-choice p{margin:0 0 10px;font-size:14px;line-height:1.75}
+.onebe-heatmap-choice a{color:#253d77;text-decoration:underline}
+.onebe-heatmap-actions{display:flex;gap:10px;margin-top:15px}
+.onebe-heatmap-actions button{flex:1;min-height:44px;border:1px solid #17213a;border-radius:6px;background:#fff;color:#17213a;padding:9px;font:inherit;cursor:pointer}
+.onebe-heatmap-actions button[data-choice=yes]{background:#17213a;color:#fff}
+.onebe-heatmap-choice .onebe-heatmap-status{margin:10px 0 0;font-size:12px}
+.onebe-heatmap-status:empty{display:none}
+.onebe-heatmap-settings{display:block;margin:16px auto;padding:10px 15px;border:0;background:transparent;color:inherit;font:inherit;font-size:12px;text-decoration:underline;cursor:pointer;min-height:44px}
+.onebe-heatmap-choice button:focus-visible,.onebe-heatmap-settings:focus-visible{outline:3px solid #3275ce;outline-offset:3px}
+@media(max-width:600px){.onebe-heatmap-choice{bottom:80px;left:12px;width:calc(100% - 24px);padding:16px;max-height:calc(100dvh - 100px)}}

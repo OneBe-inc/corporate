@@ -1,3 +1,4 @@
+import {url as commonUrl,site as commonSite} from '../config.mjs';
 import {site,plans,inclusions,samples,services,faqs} from './data.mjs';
 const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
 const lines=s=>esc(s).replaceAll('\n','<br>');
@@ -41,7 +42,7 @@ export function renderPage(){return `<!doctype html>
 <link rel="preload" as="image" href="assets/salon-portrait.webp">
 <link rel="stylesheet" href="assets/styles.css">
 <script type="application/ld+json">${JSON.stringify(schema)}</script>
-<script defer src="assets/main.js"></script><script defer src="assets/analytics.js"></script>
+<link rel="stylesheet" href="${commonUrl('assets/heatmap.css')}?v=${commonSite.updated}"><script defer src="${commonUrl('assets/heatmap.js')}?v=${commonSite.updated}"></script><script defer src="assets/main.js"></script><script defer src="assets/analytics.js"></script>
 </head><body>
 <a class="skip-link" href="#main">本文へ移動</a>
 <header class="site-header"><div class="header-inner"><a class="brand" href="#top" aria-label="OneBe 定額Webサービス トップ">${logo()}</a>

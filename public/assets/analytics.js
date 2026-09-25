@@ -15,6 +15,18 @@
     allow_google_signals: false,
     allow_ad_personalization_signals: false
   });
+  let leadSent = false;
+  window.onebeTrackLead = () => {
+    if (leadSent || location.pathname !== '/contact/confirm/') return;
+    leadSent = true;
+    window.gtag('event', 'generate_lead', {
+      send_to: measurementId,
+      form_id: 'contact',
+      page_location: location.origin + location.pathname,
+      page_referrer: withoutParameters(document.referrer),
+      transport_type: 'beacon'
+    });
+  };
   const script = document.createElement('script');
   script.async = true;
   script.src = 'https://www.googletagmanager.com/gtag/js?id=' + measurementId;

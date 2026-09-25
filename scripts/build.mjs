@@ -10,7 +10,7 @@ if(path.dirname(out)!==root||path.basename(out)!=='dist')throw Error('Unsafe bui
 fs.rmSync(out,{recursive:true,force:true});fs.mkdirSync(out,{recursive:true});fs.cpSync(path.join(root,'public'),out,{recursive:true});
 const introScript=fs.readFileSync(path.join(root,'public/assets/intro.js'),'utf8');
 fs.copyFileSync(path.join(root,'src/note-posts.json'),path.join(out,'assets/note-posts.json'));
-const version=createHash('sha256').update(['site.css','site.js','form.mjs','intro.js','analytics.js'].map(x=>fs.readFileSync(path.join(root,'public/assets',x),'utf8')).join('')).digest('hex').slice(0,12);
+const version=createHash('sha256').update(['site.css','site.js','form.mjs','intro.js','analytics.js','heatmap.js','heatmap.css'].map(x=>fs.readFileSync(path.join(root,'public/assets',x),'utf8')).join('')).digest('hex').slice(0,12);
 const pages=pageDefinitions().map(page=>({...page,noindex:!site.indexingEnabled||Boolean(page.noindex)}));
 let monthlyHTML=renderMonthly();
 for(const file of ['styles.css','main.js','analytics.js']){
