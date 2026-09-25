@@ -65,8 +65,18 @@ test('paired devices remain visible while browsing all nine designs',async({page
   await expect(page.locator('.desktop-preview')).toBeVisible();await expect(page.locator('.dialog-preview')).toBeVisible();
   expect(await page.locator('.sample-dialog').evaluate(e=>e.scrollWidth<=e.clientWidth+1)).toBe(true);
   if(i===0)await expect(page.locator('.desktop-preview>img')).toHaveAttribute('src','assets/onebe-restaurant-desktop.png');
+  else if(i===4)await expect(page.locator('.desktop-preview>img')).toHaveAttribute('src','assets/udebiya-desktop.png');
   else await expect(page.locator('.desktop-preview>.sample-screen')).toHaveCount(1);
   await page.locator('.dialog-next').click();
  }
  await expect(page.locator('#dialog-title')).toHaveText('ワンビー食堂');
+});
+for(const width of [390,1440])test(`ramen sample images and live link at ${width}`,async({page})=>{
+ await page.setViewportSize({width,height:950});await page.emulateMedia({reducedMotion:'reduce'});await page.goto('/services/monthly/');
+ await page.locator('.carousel-viewport').evaluate(e=>e.scrollLeft=46800+1040);
+ const trigger=page.locator('[data-sample="komorebi"]');await expect(trigger.locator('img')).toHaveAttribute('src','assets/udebiya-mobile.png');await trigger.click();
+ await expect(page.locator('#dialog-title')).toHaveText('腕火屋');await expect(page.locator('.desktop-preview img')).toHaveAttribute('src','assets/udebiya-desktop.png');await expect(page.locator('.dialog-preview img')).toHaveAttribute('src','assets/udebiya-mobile.png');
+ await expect(page.locator('.dialog-visit')).toHaveAttribute('href','https://onebe-inc.github.io/sample_food2/');
+ const popupPromise=page.waitForEvent('popup');await page.locator('.dialog-visit').click();const popup=await popupPromise;await popup.waitForLoadState('domcontentloaded');expect(popup.url()).toBe('https://onebe-inc.github.io/sample_food2/');await popup.close();
+ expect(await page.locator('.sample-dialog').evaluate(e=>e.scrollWidth<=e.clientWidth+1)).toBe(true);
 });
