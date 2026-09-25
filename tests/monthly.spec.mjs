@@ -52,7 +52,7 @@ for(const width of [390,1440])test(`gallery actions and supplied desktop image a
  await expect(visit).toHaveAttribute('href','https://onebe-inc.github.io/sample_food1/');
  await page.route('https://onebe-inc.github.io/sample_food1/',r=>r.fulfill({body:'<!doctype html><title>Sample destination</title>',contentType:'text/html'}));
  const popupPromise=page.waitForEvent('popup');await visit.click();const popup=await popupPromise;await popup.waitForLoadState();expect(popup.url()).toBe('https://onebe-inc.github.io/sample_food1/');await popup.close();
- await dialog.locator('.dialog-next').click();await expect(page.locator('#dialog-title')).toHaveText('Lumière');await expect(visit).toBeHidden();
+ await dialog.locator('.dialog-next').click();await expect(page.locator('#dialog-title')).toHaveText('腕火屋');await expect(visit).toHaveAttribute('href','https://onebe-inc.github.io/sample_food2/');
  await dialog.locator('.dialog-prev').click();await expect(visit).toBeVisible();
  expect(await dialog.evaluate(e=>e.scrollWidth<=e.clientWidth+1)).toBe(true);
  await page.keyboard.press('Escape');await expect(dialog).not.toBeVisible();
@@ -65,7 +65,8 @@ test('paired devices remain visible while browsing all nine designs',async({page
   await expect(page.locator('.desktop-preview')).toBeVisible();await expect(page.locator('.dialog-preview')).toBeVisible();
   expect(await page.locator('.sample-dialog').evaluate(e=>e.scrollWidth<=e.clientWidth+1)).toBe(true);
   if(i===0)await expect(page.locator('.desktop-preview>img')).toHaveAttribute('src','assets/onebe-restaurant-desktop.png');
-  else if(i===4)await expect(page.locator('.desktop-preview>img')).toHaveAttribute('src','assets/udebiya-desktop.png');
+  else if(i===1)await expect(page.locator('.desktop-preview>img')).toHaveAttribute('src','assets/udebiya-desktop.png');
+  else if(i===2)await expect(page.locator('.desktop-preview>img')).toHaveAttribute('src','assets/onebe-salon-desktop.png');
   else await expect(page.locator('.desktop-preview>.sample-screen')).toHaveCount(1);
   await page.locator('.dialog-next').click();
  }
@@ -73,10 +74,18 @@ test('paired devices remain visible while browsing all nine designs',async({page
 });
 for(const width of [390,1440])test(`ramen sample images and live link at ${width}`,async({page})=>{
  await page.setViewportSize({width,height:950});await page.emulateMedia({reducedMotion:'reduce'});await page.goto('/services/monthly/');
- await page.locator('.carousel-viewport').evaluate(e=>e.scrollLeft=46800+1040);
+ await page.locator('.carousel-viewport').evaluate(e=>e.scrollLeft=46800+260);
  const trigger=page.locator('[data-sample="komorebi"]');await expect(trigger.locator('img')).toHaveAttribute('src','assets/udebiya-mobile.png');await trigger.click();
  await expect(page.locator('#dialog-title')).toHaveText('腕火屋');await expect(page.locator('.desktop-preview img')).toHaveAttribute('src','assets/udebiya-desktop.png');await expect(page.locator('.dialog-preview img')).toHaveAttribute('src','assets/udebiya-mobile.png');
  await expect(page.locator('.dialog-visit')).toHaveAttribute('href','https://onebe-inc.github.io/sample_food2/');
  const popupPromise=page.waitForEvent('popup');await page.locator('.dialog-visit').click();const popup=await popupPromise;await popup.waitForLoadState('domcontentloaded');expect(popup.url()).toBe('https://onebe-inc.github.io/sample_food2/');await popup.close();
  expect(await page.locator('.sample-dialog').evaluate(e=>e.scrollWidth<=e.clientWidth+1)).toBe(true);
+});
+test('first three samples are omelette, ramen, salon with captured screens',async({page})=>{
+ await page.emulateMedia({reducedMotion:'reduce'});await page.goto('/services/monthly/');
+ expect(await page.locator('.sample-trigger').evaluateAll(es=>es.slice(0,3).map(e=>e.dataset.title))).toEqual(['ワンビー食堂','腕火屋','OneBeSalon']);
+ await page.locator('.carousel-viewport').evaluate(e=>e.scrollLeft=46800+520);await page.locator('[data-sample="onebesalon"]').click();
+ await expect(page.locator('#dialog-title')).toHaveText('OneBeSalon');await expect(page.locator('.dialog-visit')).toHaveAttribute('href','https://onebe-inc.github.io/sample_salon2/');
+ await expect(page.locator('.desktop-preview img')).toHaveAttribute('src','assets/onebe-salon-desktop.png');await expect(page.locator('.dialog-preview img')).toHaveAttribute('src','assets/onebe-salon-mobile.png');
+ await expect.poll(()=>page.locator('.desktop-preview img').evaluate(e=>e.naturalWidth)).toBe(1440);
 });
