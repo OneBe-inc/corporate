@@ -7,7 +7,9 @@ for(const width of [320,390,834,1440])test(`monthly LP at ${width}px`,async({pag
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
  expect(await page.locator('img').evaluateAll(images=>images.filter(i=>!i.loading||i.loading!=='lazy').every(i=>i.complete&&i.naturalWidth>0))).toBe(true);
  await expect(page.locator('[rel=canonical]')).toHaveAttribute('href','https://onebe-create.com/services/monthly/');
- expect(await page.locator('[data-contact]').evaluateAll(links=>links.length===9&&links.every(a=>a.href==='https://lin.ee/rF35Qat'))).toBe(true);
+ expect(await page.locator('[data-contact]').evaluateAll(links=>links.length===10&&links.every(a=>a.href==='https://lin.ee/rF35Qat'))).toBe(true);
+ await expect(page.locator('#monitor')).toContainText('初期費用5,000円');
+ await expect(page.locator('#monitor')).toContainText('公開後の最初の3か月間');
  const before=await page.locator('.sample-item').first().getAttribute('style');
  await page.locator('.carousel-viewport').evaluate(e=>e.scrollLeft+=260);
  await expect(page.locator('.sample-item').first()).not.toHaveAttribute('style',before);
