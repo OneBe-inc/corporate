@@ -1,3 +1,4 @@
+import {topicOptions} from '../public/assets/form.mjs';
 export const services = [
   {id:'direction', name:'ブランドの方向性', en:'BRAND DIRECTION', image:'directionWork', topic:'ブランドの方向性', when:'自社の強みや、これからの伝え方を整理したい。', description:'事業の背景や大切にしている想いを伺い、誰に何を届けるのかを一緒に整理します。言葉と表現のよりどころをつくります。', scope:['ヒアリング・課題整理','理念やメッセージの言語化','伝える相手・方向性の整理']},
   {id:'logo', name:'ロゴ・ビジュアル', en:'LOGO & VISUAL', image:'logoWork', topic:'ロゴ・印刷物などの制作', when:'事業の想いを、ひと目で伝わる印にしたい。', description:'事業の背景と使われる場面を踏まえ、ロゴやブランドの見え方を設計します。紙、Web、サインへの展開も考えてつくります。', scope:['ロゴデザイン','色・書体・基本表現','媒体への展開']},
@@ -88,7 +89,7 @@ export const works = [
     "description": "「恩を紡ぐ」をテーマに、代表の想いや家族への想いを重ねた、株式会社ontsugiのコーポレートロゴを制作しました。"
   }
 ];
-export const topics=['ブランドの方向性','ロゴ・印刷物などの制作','Webサイト制作','創業パッケージ','定額Webサービス','OneBeレター','まだ決まっていない','その他'];
+export const topics=topicOptions;
 export const faqs=[
   ['つくるものが決まっていなくても相談できますか？','はい。今のお悩みや、事業で大切にしていることをお聞かせください。必要なことと優先順位を整理するところから、一緒に考えます。'],
   ['ロゴや印刷物など、一部の制作だけでも依頼できますか？','はい。個別の制作もご相談いただけます。使う場面や既存の制作物を伺い、必要な範囲を確認します。'],

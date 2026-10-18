@@ -7,7 +7,7 @@
     "index": true,
     "canonical": "https://onebe-create.com/journal/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
   },
   {
     "path": "news/",
@@ -17,7 +17,7 @@
     "index": true,
     "canonical": "https://onebe-create.com/news/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
   },
   {
     "path": "news/blog-news/",
@@ -27,17 +27,17 @@
     "index": true,
     "canonical": "https://onebe-create.com/news/blog-news/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
   },
   {
     "path": "",
-    "title": "OneBe｜ブランディング・Web・グラフィックデザイン",
-    "description": "会社や事業の想いを整理し、言葉とデザインで伝わる形へ。OneBeはブランドの方向づくりからWeb、印刷物、店舗の表現まで伴走します。",
+    "title": "仙台のロゴ・名刺・チラシ制作｜株式会社OneBe",
+    "description": "宮城県仙台市の株式会社OneBe。ロゴ・名刺・チラシ・ポスターからWebまで、事業の想いを整理してデザインします。制作内容・費用・納期のご相談、実際の制作事例をご案内します。",
     "url": "https://onebe-create.com/",
     "index": true,
     "canonical": "https://onebe-create.com/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
   },
   {
     "path": "works/",
@@ -47,7 +47,7 @@
     "index": true,
     "canonical": "https://onebe-create.com/works/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
   },
   {
     "path": "services/",
@@ -57,17 +57,17 @@
     "index": true,
     "canonical": "https://onebe-create.com/services/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
   },
   {
     "path": "about/",
-    "title": "OneBeについて",
-    "description": "本気の想いを、本気で伝える。OneBeの考え方、代表・舛谷一成のプロフィール、事業内容とお問い合わせ先をご紹介します。",
+    "title": "会社概要・OneBeについて",
+    "description": "宮城県仙台市青葉区の株式会社OneBe。代表は舛谷一成。ロゴ・名刺・チラシ・Webなどのデザインとブランディング支援を行います。会社概要・本店所在地・代表プロフィール・お問い合わせ先。",
     "url": "https://onebe-create.com/about/",
     "index": true,
     "canonical": "https://onebe-create.com/about/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
   },
   {
     "path": "contact/",
@@ -77,27 +77,27 @@
     "index": true,
     "canonical": "https://onebe-create.com/contact/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
   },
   {
     "path": "contact/confirm/",
     "title": "入力内容の確認",
     "description": "OneBeへのお問い合わせ内容を確認して送信します。",
     "url": "https://onebe-create.com/contact/confirm/",
-    "index": true,
+    "index": false,
     "canonical": "https://onebe-create.com/contact/confirm/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
   },
   {
     "path": "thanks/",
     "title": "ご相談ありがとうございます",
     "description": "OneBeへのご相談後の流れと、OneBeを知るためのご案内。",
     "url": "https://onebe-create.com/thanks/",
-    "index": true,
+    "index": false,
     "canonical": "https://onebe-create.com/thanks/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
   },
   {
     "path": "privacy/",
@@ -107,7 +107,7 @@
     "index": true,
     "canonical": "https://onebe-create.com/privacy/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
   },
   {
     "path": "works/umui/",
@@ -117,7 +117,7 @@
     "index": true,
     "canonical": "https://onebe-create.com/works/umui/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
   },
   {
     "path": "works/soyokaze/",
@@ -127,7 +127,7 @@
     "index": true,
     "canonical": "https://onebe-create.com/works/soyokaze/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
   },
   {
     "path": "works/vaizo/",
@@ -137,7 +137,7 @@
     "index": true,
     "canonical": "https://onebe-create.com/works/vaizo/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
   },
   {
     "path": "works/ontsugi/",
@@ -147,7 +147,7 @@
     "index": true,
     "canonical": "https://onebe-create.com/works/ontsugi/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
   },
   {
     "path": "services/direction/",
@@ -157,17 +157,7 @@
     "index": true,
     "canonical": "https://onebe-create.com/services/direction/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
-  },
-  {
-    "path": "services/logo/",
-    "title": "ロゴ・ビジュアル",
-    "description": "事業の背景と使われる場面を踏まえ、ロゴやブランドの見え方を設計します。紙、Web、サインへの展開も考えてつくります。",
-    "url": "https://onebe-create.com/services/logo/",
-    "index": true,
-    "canonical": "https://onebe-create.com/services/logo/",
-    "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
   },
   {
     "path": "services/web/",
@@ -177,7 +167,7 @@
     "index": true,
     "canonical": "https://onebe-create.com/services/web/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
   },
   {
     "path": "services/print/",
@@ -187,7 +177,7 @@
     "index": true,
     "canonical": "https://onebe-create.com/services/print/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
   },
   {
     "path": "services/sign/",
@@ -197,7 +187,7 @@
     "index": true,
     "canonical": "https://onebe-create.com/services/sign/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
   },
   {
     "path": "services/space/",
@@ -207,7 +197,37 @@
     "index": true,
     "canonical": "https://onebe-create.com/services/space/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
+  },
+  {
+    "path": "services/logo/",
+    "title": "仙台のロゴ制作・ロゴデザイン",
+    "description": "宮城県仙台市の株式会社OneBeによるロゴ制作。事業の背景と使う場面を整理し、ロゴ・色・書体から名刺やWebへの展開まで考えます。費用と納期は制作範囲を確認してお見積もりします。",
+    "url": "https://onebe-create.com/services/logo/",
+    "index": true,
+    "canonical": "https://onebe-create.com/services/logo/",
+    "source": "Approved OneBe design / supplied profile / user-provided email",
+    "updated": "2026-10-19"
+  },
+  {
+    "path": "services/business-card/",
+    "title": "仙台の名刺制作・名刺デザイン",
+    "description": "宮城県仙台市の株式会社OneBeによる名刺制作。載せる情報と使う場面から整理し、ロゴやWebとの一貫性を考えてデザインします。人数・印刷仕様・部数などを確認し、費用と納期をご案内します。",
+    "url": "https://onebe-create.com/services/business-card/",
+    "index": true,
+    "canonical": "https://onebe-create.com/services/business-card/",
+    "source": "Approved OneBe design / supplied profile / user-provided email",
+    "updated": "2026-10-19"
+  },
+  {
+    "path": "services/flyer/",
+    "title": "仙台のチラシ制作・ポスターデザイン",
+    "description": "宮城県仙台市の株式会社OneBeによるチラシ・ポスター制作。届ける相手、配る場所、読んだ後に取ってほしい行動から、内容とデザインを整理します。サイズ・面数・原稿・印刷条件を確認してお見積もりします。",
+    "url": "https://onebe-create.com/services/flyer/",
+    "index": true,
+    "canonical": "https://onebe-create.com/services/flyer/",
+    "source": "Approved OneBe design / supplied profile / user-provided email",
+    "updated": "2026-10-19"
   },
   {
     "path": "services/startup/",
@@ -217,7 +237,7 @@
     "index": true,
     "canonical": "https://onebe-create.com/services/startup/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
   },
   {
     "path": "services/monthly/",
@@ -227,7 +247,7 @@
     "index": true,
     "canonical": "https://onebe-create.com/services/monthly/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
   },
   {
     "path": "services/letter/",
@@ -237,16 +257,16 @@
     "index": true,
     "canonical": "https://onebe-create.com/services/letter/",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
   },
   {
     "path": "404.html",
     "title": "ページが見つかりません",
     "description": "お探しのページが見つかりませんでした。OneBeのホームや支援内容からお探しください。",
     "url": "https://onebe-create.com/404.html",
-    "index": true,
+    "index": false,
     "canonical": "https://onebe-create.com/404.html",
     "source": "Approved OneBe design / supplied profile / user-provided email",
-    "updated": "2026-09-14"
+    "updated": "2026-10-19"
   }
 ]

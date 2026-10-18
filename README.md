@@ -1,3 +1,20 @@
+# 現行運用：2026-10-19
+
+公開先は https://onebe-create.com/ 。検索掲載は有効です。名刺・ロゴ・チラシ制作の相談獲得を目的に、トップの制作メニュー、サービス別ページ、関連実績、相談テーマの引き継ぎを整備しました。
+
+- 検索対象：24 URL。入力確認・送信完了・404はnoindexにし、サイトマップへ載せません。全27 HTMLを生成します。
+- ロゴ：/services/logo/（既存URLを維持）。名刺：/services/business-card/、チラシ：/services/flyer/ を追加。
+- 会社情報：共有正本「OneBe_会社概要.md」の2026-10-17照合済み公開情報を参照。所在地は本店所在地として掲載し、来訪・郵送先とは断定しません。構造化データはsrc/config.mjsで統一します。
+- 価格・納期・印刷手配：新たな固定価格や保証を追加せず、条件確認と個別見積もりを案内します。事例は既存の担当範囲に限ります。
+- src/production-services.mjs がロゴ・名刺・チラシの原稿・FAQ・関連事例を管理します。フォームの選択肢はpublic/assets/form.mjsを共通参照します。
+- 全ページの会社識別情報を更新したため、lastmodを実際の改修日2026-10-19へ更新。料金基準日・記事公開日は変更しません。
+- npm test と node --test tests/note-sync.test.mjs tests/analytics.test.mjs を実行。公開後にHTTP・robots・canonical・サイトマップ・Google URL検査を確認します。
+- Search Consoleの再クロールやサイトマップ送信と、実際の登録・順位・AI引用は区別します。登録や受注の保証はしません。
+
+以下は2026年9月の制作記録です。旧GitHub Pages URL、検索停止、未確認事項の記述は当時の履歴で、現行設定を上書きしません。
+
+---
+
 # OneBe corporate website
 
 OneBeのコーポレートサイト。PC・タブレット・スマートフォンに対応する21ページを静的HTMLとして生成し、GitHub Pagesで公開します。

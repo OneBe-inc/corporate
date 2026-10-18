@@ -1,5 +1,5 @@
 export const site = {
-  name: 'OneBe', url: 'https://onebe-create.com/services/monthly/', updated: '2026-09-25',
+  name: 'OneBe', url: 'https://onebe-create.com/services/monthly/', updated: '2026-10-19',
   contact: 'https://lin.ee/rF35Qat',
   company: 'https://onebe-create.com/', privacy: 'https://onebe-create.com/privacy/'
 };
