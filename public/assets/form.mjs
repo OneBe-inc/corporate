@@ -3,3 +3,10 @@ export function normalizeDraft(data){return {company:String(data.company||'').tr
 export function validateDraft(input){const data=normalizeDraft(input),errors={};if(!data.name||data.name.length>100)errors.name='お名前を100文字以内で入力してください。';if(data.company.length>100)errors.company='会社名・屋号を100文字以内で入力してください。';if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)||data.email.length>254)errors.email='メールアドレスを正しく入力してください。';if(!data.topics.length)errors.topics='相談したいことを1つ以上選択してください。';if(!data.message||data.message.length>5000)errors.message='ご相談内容を5,000文字以内で入力してください。';if(!data.consent)errors.consent='プライバシーポリシーへの同意が必要です。';return {data,errors,valid:Object.keys(errors).length===0};}
 export function isSuccess(response){return !!response&&(response.success===true||response.success==='true');}
 export function readStored(raw,now=Date.now()){try{const entry=JSON.parse(raw);if(!entry||typeof entry.savedAt!=='number'||entry.savedAt>now||now-entry.savedAt>86400000)return null;return normalizeDraft(entry.data);}catch{return null;}}
+
+const serviceCodes=['logo','business_card','flyer','brand_direction','graphic','web','startup','monthly','letter','undecided','other'];
+export function acceptedLeadEvent(ok,response,topics){
+ if(!ok||!isSuccess(response))return null;
+ const codes=[...new Set((Array.isArray(topics)?topics:[]).map(topic=>serviceCodes[topicOptions.indexOf(topic)]).filter(Boolean))].sort();
+ return {form_id:'corporate_contact',service_type:codes.length===1?codes[0]:codes.length?'multiple':'other',service_types:codes.join(',')||'other',transport_type:'beacon'};
+}

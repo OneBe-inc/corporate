@@ -15,6 +15,14 @@
     allow_google_signals: false,
     allow_ad_personalization_signals: false
   });
+  document.addEventListener?.('click', event => {
+    const anchor=event.target.closest?.('a[href]');
+    if(!anchor)return;
+    let target;try{target=new URL(anchor.href,location.href);}catch{return;}
+    if(target.origin!==location.origin||target.pathname!=='/contact/'||location.pathname==='/contact/')return;
+    const serviceMap={'ロゴ制作':'logo','名刺制作':'business_card','チラシ・ポスター制作':'flyer'};
+    window.gtag('event','contact_click',{service_type:serviceMap[target.searchParams.get('topic')]||'other',source_path:location.pathname,transport_type:'beacon'});
+  });
   const script = document.createElement('script');
   script.async = true;
   script.src = 'https://www.googletagmanager.com/gtag/js?id=' + measurementId;
