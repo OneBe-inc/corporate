@@ -13,7 +13,8 @@
     "check:aio:static": "node scripts/check-static.mjs",
     "check:aio:http": "node scripts/check-http.mjs",
     "check:aio:browser": "playwright test",
-    "test": "npm run build && npm run check:aio:static && node --test tests/form.test.mjs tests/analytics.test.mjs tests/lead.test.mjs"
+    "test": "npm run build && npm run check:aio:static && node --test tests/form.test.mjs tests/analytics.test.mjs tests/lead.test.mjs tests/security.test.mjs tests/security-report.test.mjs",
+    "security:report": "node scripts/security-report.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.63.0",
