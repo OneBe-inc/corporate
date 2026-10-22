@@ -14,7 +14,7 @@ export function inlineScriptHashes(html){
 }
 
 export function contentSecurityPolicy(hashes=[]){
- return ["default-src 'none'",["script-src 'self' https://www.googletagmanager.com",...hashes].join(' '),"style-src 'self' 'unsafe-inline'","img-src 'self' data: https://assets.st-note.com https://*.google-analytics.com https://www.googletagmanager.com","font-src 'self'","media-src 'self'","connect-src 'self' https://formsubmit.co https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com","object-src 'none'","frame-src 'none'","base-uri 'none'","form-action 'none'"].join('; ');
+ return ["default-src 'none'",["script-src 'self' https://www.googletagmanager.com",...hashes].join(' '),"style-src 'self' 'unsafe-inline'","img-src 'self' data: https://assets.st-note.com https://*.google-analytics.com https://www.googletagmanager.com","font-src 'self'","media-src 'self'","connect-src 'self' https://formsubmit.co https://*.google-analytics.com https://*.analytics.google.com https://*.google.com https://www.googletagmanager.com","object-src 'none'","frame-src 'none'","base-uri 'none'","form-action 'none'"].join('; ');
 }
 
 export function protectHtml(html){
