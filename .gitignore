@@ -8,3 +8,5 @@ playwright-report/
 reports/*.png
 reports/*.json
 !reports/.gitkeep
+reports/security/
+reports/security-events/
