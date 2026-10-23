@@ -80,3 +80,6 @@
 
 /* Browser captures fill device viewports without letterboxing. */
 .screenshot-screen>img{object-fit:cover;object-position:top}.desktop-preview>img{object-fit:cover;object-position:top}
+
+/* Optional heatmap consent; layout stays usable at narrow widths. */
+.onebe-heatmap-choice[hidden]{display:none!important}.onebe-heatmap-choice{position:fixed;z-index:10000;right:20px;bottom:20px;box-sizing:border-box;width:min(440px,calc(100% - 40px));max-height:80dvh;overflow:auto;background:#fff;color:#111936;padding:22px;border:1px solid #cad0da;border-radius:12px;box-shadow:0 8px 40px #11193633;font:14px/1.7 sans-serif}.onebe-heatmap-choice p{margin:0 0 10px}.onebe-heatmap-choice a{color:#174a86;text-decoration:underline}.onebe-heatmap-actions{display:flex;gap:12px;margin-top:16px}.onebe-heatmap-actions button{flex:1;padding:10px;border:1px solid #111936;border-radius:6px;background:white;color:#111936;cursor:pointer}.onebe-heatmap-actions [data-choice=yes]{background:#111936;color:white}.onebe-heatmap-settings{margin:16px 24px;padding:8px 12px;background:transparent;color:inherit;border:1px solid currentColor;border-radius:4px;font:inherit;cursor:pointer}.onebe-heatmap-choice button:focus-visible,.onebe-heatmap-settings:focus-visible{outline:3px solid #dc9c32;outline-offset:3px}
