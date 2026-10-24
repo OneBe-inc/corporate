@@ -25,6 +25,7 @@
     document.body.setAttribute('data-clarity-mask', 'True');
     window.clarity = window.clarity || function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
     window.clarity('consentv2', {analytics_Storage: 'granted', ad_Storage: 'denied'});
+    window.clarity('set', 'site_revision', 'readable_20261024');
     const script = document.createElement('script');
     script.async = true;
     script.src = 'https://www.clarity.ms/tag/yo0ok90i83';

@@ -56,7 +56,12 @@ test('public imagery can render under strict masking without unmasking text or i
   for(const img of images)assert.match(img,/data-clarity-unmask="true"/);
   const video=html.match(/<video\b[^>]*id="hero-video"[^>]*>/)?.[0];
   assert.ok(video);assert.match(video,/data-clarity-unmask="true"/);assert.match(video,/poster="\/assets\/hero-type-pc.webp"/);
-  assert.ok(!/<(?:body|main|form|input|textarea|select|p|h[1-6])\b[^>]*data-clarity-unmask/.test(html));
+  assert.match(html,/<main id="main-content" data-clarity-unmask="true">/);
+  assert.ok(!/<(?:body|form|input|textarea|select)\b[^>]*data-clarity-unmask/.test(html));
   const contact=fs.readFileSync('dist/contact/index.html','utf8');
-  assert.ok(!/<(?:form|input|textarea|select)\b[^>]*data-clarity-unmask/.test(contact));
+  assert.ok(!/<(?:main|form|input|textarea|select)\b[^>]*data-clarity-unmask/.test(contact));
+  const r=run('https://onebe-create.com/','yes');
+  assert.equal(r.window.clarity.q[1][0],'set');
+  assert.equal(r.window.clarity.q[1][1],'site_revision');
+  assert.equal(r.window.clarity.q[1][2],'readable_20261024');
 });

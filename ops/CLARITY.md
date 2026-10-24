@@ -29,3 +29,7 @@ Rollback: revert this release commit and redeploy. Preserve the Clarity project 
 ## 2026-10-24 public-image correction
 
 The first heatmap background masked public images as well as text, making it unlike the published site. Public static image tags and the homepage hero video now carry `data-clarity-unmask="true"`; the hero video has a matching responsive WebP poster. Body text remains masked, project Strict mode and contact/thanks exclusion remain. This exception reveals published imagery and its public alt text only, not form input. Existing masked snapshots cannot be reconstructed; verify using a newly recorded impression and Change screenshot when it becomes available. Mobile production consent panel was subsequently visually verified at 390x844 (see delivery.json), superseding the pending mobile note above.
+
+## Readable public content correction
+
+Public static main content, navigation and footer are now explicitly unmasked, so section headings can be matched to attention data. Contact/confirmation/thanks main content is not unmasked and those routes never start Clarity. Body masking and Strict project mode continue outside approved public content. Privacy disclosure updated. Revision tag `site_revision=readable_20261024` distinguishes the new layout from previously masked snapshots. Do not interpret QA sessions as organic traffic or manufacture mobile traffic counts.
