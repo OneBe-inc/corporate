@@ -25,3 +25,7 @@ Local: consent/privacy route tests and existing form, GA4, lead and CSP tests; s
 Performance scope: existing video-heavy site; only consent UI and async recorder added. Recorder has zero requests before consent and no duplicate start. Local loader budget <8 KiB raw, CSS addition <2 KiB raw. Actual recorder network cost and cold LCP/CLS/TBT median of 3 runs, real-user p75 LCP/INP/CLS: NOT_TESTED. No claim of performance improvement. Existing media/3D lifecycle: N/A to this change.
 
 Rollback: revert this release commit and redeploy. Preserve the Clarity project and existing GA4. Already open pages must reload to unload the recorder. Backend receipt/recording and deployment checks are recorded in the delivery artifact outside the repository.
+
+## 2026-10-24 public-image correction
+
+The first heatmap background masked public images as well as text, making it unlike the published site. Public static image tags and the homepage hero video now carry `data-clarity-unmask="true"`; the hero video has a matching responsive WebP poster. Body text remains masked, project Strict mode and contact/thanks exclusion remain. This exception reveals published imagery and its public alt text only, not form input. Existing masked snapshots cannot be reconstructed; verify using a newly recorded impression and Change screenshot when it becomes available. Mobile production consent panel was subsequently visually verified at 390x844 (see delivery.json), superseding the pending mobile note above.

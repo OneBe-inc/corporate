@@ -49,3 +49,14 @@ test('all built layouts include one versioned heatmap loader and privacy disclos
   for(const file of files){const html=fs.readFileSync(file,'utf8');assert.equal((html.match(/src="\/assets\/heatmap\.js\?v=[a-f0-9]+"/g)||[]).length,1,file);}
   assert.match(fs.readFileSync('dist/privacy/index.html','utf8'),/Microsoft Clarity/);
 });
+
+test('public imagery can render under strict masking without unmasking text or input',()=>{
+  const html=fs.readFileSync('dist/index.html','utf8');
+  const images=html.match(/<img\b[^>]*>/g)||[];assert.ok(images.length>5);
+  for(const img of images)assert.match(img,/data-clarity-unmask="true"/);
+  const video=html.match(/<video\b[^>]*id="hero-video"[^>]*>/)?.[0];
+  assert.ok(video);assert.match(video,/data-clarity-unmask="true"/);assert.match(video,/poster="\/assets\/hero-type-pc.webp"/);
+  assert.ok(!/<(?:body|main|form|input|textarea|select|p|h[1-6])\b[^>]*data-clarity-unmask/.test(html));
+  const contact=fs.readFileSync('dist/contact/index.html','utf8');
+  assert.ok(!/<(?:form|input|textarea|select)\b[^>]*data-clarity-unmask/.test(contact));
+});
